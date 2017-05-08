@@ -1,0 +1,2 @@
+module ClearsHelper
+end
