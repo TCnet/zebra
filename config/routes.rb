@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   resources :users
   get '/clearw', to: 'clears#new'
   post '/clearw', to: 'clears#create'
+  resources :account_activations, only: [:edit]
 end
