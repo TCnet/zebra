@@ -11,7 +11,20 @@ class ClearsController < ApplicationController
         a.push(d)
       end
     end
-    flash.now[:danger]=str.length.to_s+"|"+a.length.to_s+"|"+a.join(' ')
+
+    num=params[:clear][:numcm]
+    scm=num.split(' ')
+    acm=[]
+    scm.each do |d|
+      nd=(d.to_f*0.3937008).round(2).to_s+"\""
+      acm.push(nd)
+      
+    end
+
+    
+    flash.now[:success]=str.length.to_s+"|"+a.length.to_s+"|"+a.join(' ')
+    flash.now[:danger]=num
+    flash.now[:info]=acm.join(' ')
     render 'new'
   end
 end
