@@ -1,5 +1,6 @@
 # coding: utf-8
 class User < ApplicationRecord
+  has_many :microposts, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
@@ -10,7 +11,10 @@ class User < ApplicationRecord
             uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-  
+
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
 
   # 返回指定字符串的哈希摘要
   def self.digest(string)
