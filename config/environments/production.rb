@@ -1,4 +1,3 @@
-# coding: utf-8
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -81,22 +80,6 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
-  
-  # config/environments/development.rb
-  config.action_mailer.raise_delivery_errors = true #错误异常是事抛给应用程序
-
-
-  # set delivery method to :smtp, :sendmail or :test
-  config.action_mailer.delivery_method = :smtp # 发送邮件方式
-
-  # these options are only needed if you choose smtp delivery
-  config.action_mailer.smtp_settings = {
-    :address        => 'smtp.gmail.com',
-    :port           => 587,
-    :authentication => :plain,
-    :user_name      => 'nbtcnet@gmail.com', #你的gmail帐号
-    :password       => '5602198ljh' #你的gmail密码
-  }
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
