@@ -1,0 +1,19 @@
+current directory: /Users/lujuhuang/workspace/ruby231rails50/zebra/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.11/ext/mri
+/Users/lujuhuang/.rbenv/versions/2.3.1/bin/ruby -r ./siteconf20170515-48327-kiyr51.rb extconf.rb
+creating Makefile
+
+current directory: /Users/lujuhuang/workspace/ruby231rails50/zebra/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.11/ext/mri
+make "DESTDIR=" clean
+
+current directory: /Users/lujuhuang/workspace/ruby231rails50/zebra/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.11/ext/mri
+make "DESTDIR="
+compiling bcrypt_ext.c
+compiling crypt.c
+compiling crypt_blowfish.c
+compiling crypt_gensalt.c
+compiling wrapper.c
+linking shared-object bcrypt_ext.bundle
+
+current directory: /Users/lujuhuang/workspace/ruby231rails50/zebra/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.11/ext/mri
+make "DESTDIR=" install
+/usr/local/bin/ginstall -c -m 0755 bcrypt_ext.bundle ./.gem.20170515-48327-1262xg2

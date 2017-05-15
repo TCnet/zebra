@@ -1,0 +1,13 @@
+current directory: /Users/lujuhuang/workspace/ruby231rails50/zebra/vendor/bundle/ruby/2.3.0/gems/json-2.1.0/ext/json
+/Users/lujuhuang/.rbenv/versions/2.3.1/bin/ruby -r ./siteconf20170515-48327-539qh0.rb extconf.rb
+creating Makefile
+
+current directory: /Users/lujuhuang/workspace/ruby231rails50/zebra/vendor/bundle/ruby/2.3.0/gems/json-2.1.0/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/lujuhuang/workspace/ruby231rails50/zebra/vendor/bundle/ruby/2.3.0/gems/json-2.1.0/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/lujuhuang/workspace/ruby231rails50/zebra/vendor/bundle/ruby/2.3.0/gems/json-2.1.0/ext/json
+make "DESTDIR=" install
