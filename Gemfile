@@ -17,14 +17,22 @@ gem 'coffee-rails', '4.2.1'
 gem 'jquery-rails', '4.1.1'
 gem 'turbolinks', '5.0.0'
 gem 'jbuilder',  '2.4.1'
-
+gem 'unicorn', '~> 4.8.3'
 
 group :development, :test do
   gem 'sqlite3', '1.3.11'
   gem 'byebug', '9.0.0',  platform: :mri
 end
 
+
+
 group :development do
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano-rails', '~> 1.1.0'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rbenv', "~> 2.0"
+  gem 'capistrano-cookbook', require: false
+  
   gem 'web-console', '3.1.1'
   gem 'listen', '3.0.8'
   gem 'spring', '1.7.2'
