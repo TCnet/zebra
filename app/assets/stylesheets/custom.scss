@@ -66,7 +66,8 @@ small {
         float: left;
       }
 ul{
-    float: right; list-style: none;
+    float: right;
+    list-style: none;
     li{
 float: left;
           margin-left: 15px;
@@ -81,6 +82,17 @@ float: left;
     margin-top: 45px;
     @include box_sizing;
 }
+
+/*home*/
+.user_list{
+    margin-top:15px;
+    ul{
+        list-style: none;
+        li{float:left;margin:10px 10px;}
+    }
+
+}
+
 
 /* sidebar */
 aside {
