@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @base_title = "Ruby on Rails Tutorial Sample App"
+    @base_title = "BBS only for nbtcnet friends"
     @user = users(:michael)
     @other_user = users(:archer)
   end
