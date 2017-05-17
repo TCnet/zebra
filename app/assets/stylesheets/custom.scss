@@ -53,7 +53,48 @@ font-weight: bold;
 .navbar-header{
     button{float:right;
            margin:5px;
-}}
+          }}
+.btn-dark {
+  color: #fff !important;
+  background-color: #222733;
+  border-color: #222733;
+}
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active,
+.btn-dark.active,
+.open .dropdown-toggle.btn-dark {
+  color: #fff !important;
+  background-color: #181b24;
+  border-color: #12141b;
+}
+.btn-dark:active,
+.btn-dark.active,
+.open .dropdown-toggle.btn-dark {
+  background-image: none;
+}
+.btn-dark.disabled,
+.btn-dark.disabled:hover,
+.btn-dark.disabled:focus,
+.btn-dark.disabled:active,
+.btn-dark.disabled.active,
+.btn-dark[disabled],
+.btn-dark[disabled]:hover,
+.btn-dark[disabled]:focus,
+.btn-dark[disabled]:active,
+.btn-dark[disabled].active,
+fieldset[disabled] .btn-dark,
+fieldset[disabled] .btn-dark:hover,
+fieldset[disabled] .btn-dark:focus,
+fieldset[disabled] .btn-dark:active,
+fieldset[disabled] .btn-dark.active {
+  background-color: #222733;
+  border-color: #222733;
+}
+.btn {
+  font-weight: 500;
+  border-radius: 2px;
+}
 /* footer */
 footer {
 margin-top: 45px;
