@@ -7,7 +7,7 @@
   <div class="col-md-9">
      <h1>Show albums</h1>
     <section class="album_info">
-      <%= image_tag @album.coverimg%>
+      <%= image_tag @album.coverimg,width:"120",height: "120"%>
       <span><%=@album.name%></p>
 <span><%=@album.summary%></p>
 <span><%= link_to "edit",edit_album_path(@album) %> | <%= link_to "delete", @album, method: :delete, data: { confirm: "You sure?"} %></span>
