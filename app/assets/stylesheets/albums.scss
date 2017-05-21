@@ -5,16 +5,12 @@
 
 .albums
 {
-    padding:0;
+    padding:10px;
     list-style: none; margin: 0;
-    li{
-        float:left;
-        padding: 10px 10px;
-        margin: 5px;
-        
-    }
+    
     
 }
+.album_item{padding:5px;}
 .albums_menu
 {
     text-align:center;
