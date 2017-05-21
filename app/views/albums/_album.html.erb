@@ -1,5 +1,6 @@
 <div id="album-<%= album.id%>" class="album_item center col-md-3 col-lg-3 col-sm-3 col-xs-6">
 <%= link_to (image_tag album.coverimg, alt: album.name,width: "100%"),album %>
+<span><%= album.name %></span>
 <p>
 <%= link_to "edit",edit_album_path(album) %> | <%= link_to "delete", album, method: :delete, data: { confirm: "You sure?"} %>
 </p>
