@@ -1,0 +1,43 @@
+// Place all the styles related to the Albums controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+//albums
+
+.albums
+{
+    list-style: none; margin: 0;
+    li{
+        float:left;
+        padding: 10px 10px;
+        margin: 5px;
+        
+    }
+    
+}
+.albums_menu
+{
+    text-align:center;
+    h3{padding:5px;margin:3px;}
+    ul{
+        list-style: none; margin: 0;
+        li{padding: 0; margin:0;}
+
+    }
+    
+}
+.album_info
+{
+    padding: 10px 0; margin-top: 20px; 
+    span{display: block; margin-bottom: 3px; line-height: 1;
+        }
+    img{float: left; margin-right: 10px;
+
+    }
+}
+.photo_url
+{
+    ul
+    {list-style:none;
+    }
+}
+

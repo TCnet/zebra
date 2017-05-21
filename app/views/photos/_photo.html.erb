@@ -1,0 +1,5 @@
+<li>
+  <%= image_tag photo.picture.url(:thumb)  if photo.picture? %>
+  <span><%= photo.picture.url if photo.picture?%></span>
+  <span> <%= link_to "delete", photo, method: :delete, data: { confirm: "You sure?"} %></span>
+</li>

@@ -1,0 +1,29 @@
+<% provide(:title, "Show album") %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/album_menu' %>
+  </aside>
+  <div class="col-md-9">
+     <h1>Show albums</h1>
+    <section class="album_info">
+      <%= image_tag @album.coverimg%>
+      <span><%=@album.name%></p>
+<span><%=@album.summary%></p>
+<span><%= link_to "edit",edit_album_path(@album) %> | <%= link_to "delete", @album, method: :delete, data: { confirm: "You sure?"} %></span>
+    </section>
+ <div class="photo_list">
+      <ul>
+       <%= render @album.photos%>
+      </ul>
+ </div>
+ <div class="photo_url">
+  <ul>
+    <% @album.photos.each do |w|%>
+    <li><%=w.picture.url%></li>
+       <% end %>
+    </ul>
+  <div>
+</div>
+
+</div>

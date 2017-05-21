@@ -114,5 +114,13 @@ class UserTest < ActiveSupport::TestCase
       assert_not michael.feed.include?(post_unfollowed)
     end
   end
+
+  test "associated albums should be destroyed" do
+    @user.save
+    @user.albums.create!(name: "my album",summary: "my al",coverimg: "m.jpg")
+    assert_difference 'Album.count', -1 do
+      @user.destroy
+    end
+  end
   
 end

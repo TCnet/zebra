@@ -1,0 +1,15 @@
+<% provide(:title, 'My albums') %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/album_menu' %>
+  </aside>
+  <div class="col-md-9">
+    <h1>My albums</h1>
+    <ul class="albums">
+  <%= render @albums %>
+  <%= will_paginate %>
+  </ul>
+  </div>
+
+</div>

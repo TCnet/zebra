@@ -1,0 +1,28 @@
+album1:
+  name: "my first alnum"
+  summary: "my summary"
+  coverimg: "im.jpg"
+  created_at: <%= 10.minutes.ago %>
+  user: michael
+
+
+album2:
+  name: "my second alnum"
+  summary: "my summary"
+  coverimg: "im.jpg"
+  created_at: <%= 3.years.ago %>
+  user: michael
+
+album3:
+  name: "my third  alnum"
+  summary: "my summary"
+  coverimg: "im.jpg"
+  created_at: <%= 2.hours.ago %>
+  user: archer
+
+album4:
+  name: "my fourth  alnum"
+  summary: "my summary"
+  coverimg: "im.jpg"
+  created_at: <%= Time.zone.now %>
+  user: archer

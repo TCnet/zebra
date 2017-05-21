@@ -12,7 +12,7 @@ class MicropostTest < ActiveSupport::TestCase
   end
 
   test "should be valid" do
-    assert @micropost.valid?
+    assert @micropost.valid?  
   end
   
   test "user id should be present" do

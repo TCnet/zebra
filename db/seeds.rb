@@ -21,4 +21,12 @@ User.create!(name:  "xiangzi",
              activated_at: Time.zone.now)
 
 
+users = User.order(:created_at).take(2)
 
+5.times do
+  name = Faker::Lorem.sentence(5)
+  summary = Faker::Lorem.sentence(5)
+  coverimg = "logo.png"
+  users.each { |user| user.albums.create!(name: name,summary: summary,coverimg: coverimg)}
+end
+  
