@@ -20,7 +20,7 @@
  <div class="photo_url">
   <ul>
     <% @album.photos.each do |w|%>
-    <li><%=w.picture.url%></li>
+    <li><%=geturl w.picture.url%></li>
        <% end %>
     </ul>
   <div>
