@@ -18,6 +18,7 @@ gem 'jquery-rails', '4.1.1'
 gem 'turbolinks', '5.0.0'
 gem 'jbuilder',  '2.4.1'
 gem 'unicorn', '~> 4.8.3'
+gem 'zeroclipboard-rails'
 
 group :development, :test do
   gem 'sqlite3', '1.3.11'
