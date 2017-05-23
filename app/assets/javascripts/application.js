@@ -14,6 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
-//= require zeroclipboard
+
 //= require_tree .
 

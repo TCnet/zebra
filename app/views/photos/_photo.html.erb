@@ -4,15 +4,6 @@
   <input id="photo_<%=photo.id%>" type=text value=<%= geturl photo.picture.url if photo.picture? %> />
 
   </span>
-  <button id="bt_<%=photo.id%>" data-clipboard-target='photo_<%=photo.id%>'>Copy</button>
+  <button id="bt_<%=photo.id%>" onClick="CopyURL('photo_<%=photo.id%>')" >Copy</button>
   <span class="photo_delete" > <%= link_to "delete", photo, method: :delete, data: { confirm: "You sure?"} %></span>
 </li>
-<script>
-  $(document).ready(function() {
-  var clip_<%=photo.id%> = new ZeroClipboard($("#bt_<%=photo.id%>"));
-  clip_<%=photo.id%>.on('aftercopy',function(event){alert($("#photo_<%=photo.id%>").val())});
-
-  });
-
-
-</script>
