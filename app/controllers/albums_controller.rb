@@ -1,6 +1,8 @@
 class AlbumsController < ApplicationController
  before_action :logged_in_user, only: [:index,:edit,:show, :create, :destroy]
  before_action :correct_album, only: [:show,:edit, :update, :destroy]
+ include PhotosHelper
+ 
   def index
     @albums = current_user.albums.paginate(page: params[:page])
   end
@@ -10,8 +12,18 @@ class AlbumsController < ApplicationController
   end
 
   def show
+    
     @album = Album.find(params[:id])
+    photo_url = []
+    @album.photos.each do |w|
+      photo_url << geturl(w.picture.url)
+    end
+    @photourls = photo_url.join(' ')
+    
    
+  end
+
+  def upload
   end
 
   def create

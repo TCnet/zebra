@@ -13,7 +13,7 @@ class AlbumsInterfaceTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get albums_path
     assert_select 'aside.albums_menu'
-    assert_select 'ul.albums'
+    assert_select 'ul.nav'
     get new_album_path
     
     

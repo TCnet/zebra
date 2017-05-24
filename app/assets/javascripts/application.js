@@ -16,4 +16,4 @@
 //= require turbolinks
 
 //= require_tree .
-
+//= require fine-uploader.min

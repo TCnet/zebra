@@ -18,12 +18,17 @@
       </ul>
  </div>
  <div class="photo_url">
-  <ul>
-    <% @album.photos.each do |w|%>
-    <li><%=geturl w.picture.url%></li>
-       <% end %>
-    </ul>
-  <div>
+
+
+
+   <textarea id="photo_url" ><%= @photourls %></textarea>
+
+
+
+ <p>
+    <button id="bt_photo_url" onClick="CopyURL('photo_url')" >Copy</button>
+ </p>
+ <div>
 </div>
 
 </div>

@@ -14,18 +14,23 @@ class PhotosController < ApplicationController
   end
 
   def create
-    #@album = Album.find(params[:photo][:album_id].to_i)
+    @album = Album.find(params[:photo][:album_id].to_i)
     
     @photo =Photo.create(photo_params)
     if @photo.save
       flash[:success] = "Photo created!"
-      redirect_to albums_path
+    #redirect_to albums_path
+      redirect_to @album
       
     else
       render 'new'
     end
+    
       
     
+  end
+
+  def upload
   end
 
   def destroy

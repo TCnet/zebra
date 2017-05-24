@@ -29,4 +29,7 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
   resources :albums
   resources :photos,          only: [:new, :create, :destroy]
+
+  
+  
 end
