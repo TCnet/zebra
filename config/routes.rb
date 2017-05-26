@@ -30,6 +30,11 @@ Rails.application.routes.draw do
   resources :albums
   resources :photos,          only: [:new, :create, :destroy]
 
+  post '/upload', to: 'upload#create'
+  post '/uploads_finish', to: 'upload#finish'
+  delete '/delete_uploads', to: 'upload#destroy'
+  
+  
   
   
 end

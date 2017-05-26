@@ -1,26 +1,28 @@
-<%= render 'shared/qq-template_new'%>
-<%= form_for(@photo, html: { multipart: true }) do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
+<%= render 'shared/qq-template'%>
+ <div id="fine-uploader" >
+ </div>
+ <input type="hidden" value="<%=params[:id]%>" id="hdalbumid"/>
+<script>
+  var uploader = new qq.FineUploader({
+    debug:true,
+    element: document.getElementById('fine-uploader'),
+    request: {
+      endpoint: '/upload',
+      customHeaders: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+      },
+      params: {'album_id':$('#hdalbumid').val()
+      }
+
+    },
+    deleteFile: {
+      enabled: false,
+      endpoint: '/delete_uploads'},
+    retry: { enableAuto: true}
 
 
-   <div id="fine-uploader">
-    </div>
 
-  <script>
-        var uploader = new qq.FineUploader({
-            debug: true,
-            element: document.getElementById('fine-uploader'),
-            request: {
-                endpoint: '/uploads'
-            },
-            deleteFile: {
-                enabled: true,
-                endpoint: '/uploads'
-            },
-            retry: {
-               enableAuto: true
-            }
-        });
-    </script>
-<%= f.submit "Post", class: "btn btn-primary" %>
-<% end %>
+
+
+    });
+</script>

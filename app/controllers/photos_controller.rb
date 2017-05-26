@@ -19,19 +19,18 @@ class PhotosController < ApplicationController
     @photo =Photo.create(photo_params)
     if @photo.save
       flash[:success] = "Photo created!"
-    #redirect_to albums_path
+      #redirect_to albums_path
       redirect_to @album
       
     else
       render 'new'
     end
     
-      
+    
     
   end
 
-  def upload
-  end
+  
 
   def destroy
     @photo.destroy
@@ -40,13 +39,13 @@ class PhotosController < ApplicationController
   end
   
   private
-    def photo_params
-      params.require(:photo).permit(:album_id,:picture)
-    end
+  def photo_params
+    params.require(:photo).permit(:album_id,:picture)
+  end
+  
+  def correct_user
+    @photo = Photo.find_by(id: params[:id])
     
-    def correct_user
-      @photo = Photo.find_by(id: params[:id])
-     
-      redirect_to albums_path if @photo.album.nil?
-    end
+    redirect_to albums_path if @photo.album.nil?
+  end
 end
