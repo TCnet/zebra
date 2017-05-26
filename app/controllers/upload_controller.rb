@@ -5,8 +5,14 @@ class UploadController < ApplicationController
     photo.qquuid = params[:qquuid]
     photo.picture = params[:qqfile]
     photo.album_id= params[:album_id]
+    album = Album.find(params[:album_id])
+   
 
     if photo.save
+      if album.coverimg == "nopic.jpg"
+        album.coverimg = photo.picture.url(:normal)
+        album.save
+      end
       respond_to do |format|
         format.json {
           render json: { success: true }
@@ -39,6 +45,7 @@ class UploadController < ApplicationController
     @photo = Photo.combine_photos(photos)
 
     if @photo.save
+      
       respond_to do |format|
         format.json {
           render json: { success: true }

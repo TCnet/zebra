@@ -23,8 +23,7 @@ class AlbumsController < ApplicationController
    
   end
 
-  def upload
-  end
+  
 
   def create
     @album = current_user.albums.build(album_params)
