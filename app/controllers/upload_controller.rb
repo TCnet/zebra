@@ -17,6 +17,7 @@ class UploadController < ApplicationController
         format.json {
           render json: { success: true }
         }
+        
       end
     else
       respond_to do |format|

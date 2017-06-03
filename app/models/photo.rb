@@ -36,8 +36,8 @@ class Photo < ApplicationRecord
   private
     # 验证上传的图像大小
     def picture_size
-      if picture.size > 5.megabytes
-        errors.add(:picture, "should be less than 5MB")
+      if picture.size > 1.megabytes
+        errors.add(:picture, "should be less than 1MB")
       end
     end
 

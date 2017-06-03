@@ -33,6 +33,11 @@ class PhotosController < ApplicationController
   
 
   def destroy
+    album = Album.find(@photo.album_id)
+    if album.coverimg == @photo.picture.url(:normal)
+      album.coverimg = "nopic.jpg"
+      album.save
+    end
     @photo.destroy
     flash[:success] = "Photo deleted"
     redirect_to request.referrer || albums_path

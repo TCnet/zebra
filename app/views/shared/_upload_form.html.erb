@@ -15,9 +15,14 @@
       }
 
     },
+      validation:{
+        allowedExtensions: ['jpeg', 'jpg', 'gif', 'png'],sizeLimit: 1024*1000
+    },
+
     deleteFile: {
       enabled: false,
       endpoint: '/delete_uploads'},
+
     retry: { enableAuto: true}
 
 
