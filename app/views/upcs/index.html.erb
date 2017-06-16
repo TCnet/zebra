@@ -1,0 +1,43 @@
+<% provide(:title, 'My upcs') %>
+
+<div class="row">
+  <aside class="col-md-3 products_menu">
+   <%= render 'shared/product_menu' %>
+  </aside>
+  <div class="col-md-9">
+    <h1>My upcs</h1>
+
+
+
+
+    <div class="row ">
+       <table  id="myTable" class="table" >
+    <thead>
+      <tr>
+           <th>Check All</th>
+            <th>Name</th>
+            <th>Upload from excel</th>
+            <th>Option</th>
+        </tr>
+
+    </thead>
+    <tbody>
+       <%= render @upcs %>
+
+    </tbody>
+</table>
+
+    </div>
+
+
+ <%= will_paginate %>
+
+
+  </div>
+  <script>
+$(document).ready(function(){
+    $('#myTable').DataTable();
+});
+</script>
+
+</div>

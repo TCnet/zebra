@@ -14,7 +14,13 @@
 </section>
 <div>
    <%=render 'shared/upload_form'%>
-   </div>
+</div>
+<div>
+  <%=form_for @album, url: { action: "exportexcel" }  do |f| %>
+  <%= text_field_tag "csize" %>
+   <%= f.submit "ExportExcel"%>
+  <% end %>
+</div>
  <div class="photo_list">
       <ul id="phtot_list">
        <%= render @album.photos%>

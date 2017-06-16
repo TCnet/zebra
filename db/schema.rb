@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525145805) do
+ActiveRecord::Schema.define(version: 20170609140709) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "name"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20170525145805) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "picture"
     t.index ["user_id", "created_at"], name: "index_albums_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_albums_on_user_id"
   end
@@ -41,7 +40,19 @@ ActiveRecord::Schema.define(version: 20170525145805) do
     t.datetime "updated_at", null: false
     t.string   "picture"
     t.string   "qquuid"
+    t.string   "excelfile"
     t.index ["album_id"], name: "index_photos_on_album_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string   "name"
+    t.string   "sku"
+    t.integer  "parentid"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -52,6 +63,17 @@ ActiveRecord::Schema.define(version: 20170525145805) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "upcs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "bool"
+    t.string   "isused"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "excelfile"
+    t.index ["user_id"], name: "index_upcs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

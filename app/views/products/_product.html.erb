@@ -1,0 +1,8 @@
+<li>
+  <span>
+   <%= link_to product.name, product %>
+  </span>
+  <p>
+<%= link_to "edit",edit_product_path(product) %> | <%= link_to "delete", product, method: :delete, data: { confirm: "You sure?"} %>
+</p>
+</li>

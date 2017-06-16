@@ -33,7 +33,18 @@ Rails.application.routes.draw do
   post '/upload', to: 'upload#create'
   post '/uploads_finish', to: 'upload#finish'
   delete '/delete_uploads', to: 'upload#destroy'
+
+  resources :products
+
+  resources :upcs
+  resources :albums do
+    member do
+      
+      match :exportexcel, to: :exportexcel, via: [:post, :patch]
+    end
+  end
   
+
   
   
   
