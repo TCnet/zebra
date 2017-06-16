@@ -27,9 +27,10 @@ class AlbumsController < ApplicationController
     
     
     @photos= @album.photos
-    sizeob=@photos.find_by(name: "size.jpg")
+    sizeob = @photos.find_by(name: "size.jpg")
+    photos = @album.photos
     if sizeob
-      @photos = @album.photos.delete(sizeob)
+      photos = photos.where("name <>?","size.jpg")
 
     end
     path= File.join Rails.root, 'public/'
@@ -66,7 +67,7 @@ class AlbumsController < ApplicationController
     code=[]
     strcode = ''
     #获取颜色分组
-    @photos.each do |f|
+    photos.each do |f|
       name=f.name[0,2].downcase
      
 
@@ -100,27 +101,52 @@ class AlbumsController < ApplicationController
     code.each do |b|
       
       m=imgcloum
-      @photos.each do |d|
+      photos.each do |d|
         name=d.name[0,2].downcase
         if b==name
-          if m<8+imgcloum
-            if j==1
-              sheet1[1,m] = geturl(d.picture.url)
+          if m<7+imgcloum
+            if j==1 #第一行 
+              sheet1[1,m] = geturl(d.picture.url) #
+              if m==imgcloum
+                sheet1[1,m+8]= geturl(d.picture.url) #switch img
+              end
             end
+            #其他行
             csize.each_with_index do |c,index|
               sheet1[j+index+1,m] = geturl(d.picture.url)
+              
+              #switch img 
+              if m==imgcloum
+                sheet1[j+index+1,m+8]= geturl(d.picture.url)
+              end
+              
             end
             
           end
+          
           m+=1
         end
         
       end
-      j +=csize.length
-      
-      
+      j +=csize.length                
+    end
+
+    #设置 sizeimg
+    if sizeob
+      m=imgcloum+7
+      sizej=1
+      url=geturl(sizeob.picture.url)
+      sheet1[1,m]=url
+      code.each_with_index do |b,e|
+        csize.each_with_index do |c,index|
+          sheet1[sizej+index+1,m] = url
+          
+        end
+        sizej +=csize.length
+      end
       
     end
+    
 
     
 
