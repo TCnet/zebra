@@ -25,8 +25,13 @@ class AlbumsController < ApplicationController
     skucloum = 0
 
     
-
+    
     @photos= @album.photos
+    sizeob=@photos.find_by(name: "size.jpg")
+    if sizeob
+      @photos = @album.photos.delete(sizeob)
+
+    end
     path= File.join Rails.root, 'public/'
 
    # @photos.each do |photo|
@@ -81,9 +86,12 @@ class AlbumsController < ApplicationController
     
     skunum= csize.length
     code.each_with_index do |n,index|
-      
+      if index==1
+        sheet1[1,skucloum] = @album.name.upcase
+      end
       csize.each_with_index do |m,j|
-        sheet1[index*skunum+j+1,skucloum] = @album.name.upcase+n.upcase+"-"+m
+        sheet1[index*skunum+j+2,skucloum] = @album.name.upcase+n.upcase+"-"+m
+        
       end
     end
 
@@ -96,9 +104,13 @@ class AlbumsController < ApplicationController
         name=d.name[0,2].downcase
         if b==name
           if m<8+imgcloum
-            csize.each_with_index do |c,index|
-              sheet1[j+index,m] = geturl(d.picture.url)
+            if j==1
+              sheet1[1,m] = geturl(d.picture.url)
             end
+            csize.each_with_index do |c,index|
+              sheet1[j+index+1,m] = geturl(d.picture.url)
+            end
+            
           end
           m+=1
         end
