@@ -1,0 +1,26 @@
+<% provide(:title, 'Upload upcs') %>
+<% provide(:button_text, 'Upload') %>
+<div class="row">
+  <aside class="col-md-3 products_menu">
+   <%= render 'shared/product_menu' %>
+  </aside>
+  <div class="col-md-9">
+    <h1>Upload upcs</h1>
+
+
+    <div class="row ">
+      <%= form_for(@upc, html: { multipart: true }) do |f| %>
+
+      <%= label_tag "Please select the file!"%>
+      <%= f.file_field "excelfile", class: 'form-control' %>
+       <%= submit_tag "Sub", class: "btn btn-primary" %>
+
+   <% end %>
+
+
+     </div>
+
+
+  </div>
+
+</div>

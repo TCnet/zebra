@@ -19,6 +19,10 @@ gem 'turbolinks', '5.0.0'
 gem 'jbuilder',  '2.4.1'
 gem 'unicorn', '~> 4.8.3'
 
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem 'spreadsheet'
+gem 'jquery-datatables-rails', '~> 3.4.0'
 
 group :development, :test do
   gem 'sqlite3', '1.3.11'

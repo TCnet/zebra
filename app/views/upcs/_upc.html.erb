@@ -1,0 +1,10 @@
+<tr>
+  <td>
+  <%= %>
+  </td>
+<td> <span>
+   <%= link_to upc.name, upc %>
+  </span></td>
+            <td><%= upc.excelfile %></td>
+            <td> <%= link_to "delete", upc, method: :delete, data: { confirm: "You sure?"} %></td>
+        </tr>
