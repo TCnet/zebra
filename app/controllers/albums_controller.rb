@@ -23,6 +23,25 @@ class AlbumsController < ApplicationController
     csize=params["csize"].upcase.split(' ')
     imgcloum=5
     skucloum = 0
+    rowheight = 18
+    columnwidth = 12
+
+    format = Spreadsheet::Format.new :size => 11,
+                                     :vertical_align => :middle,
+                                     :border => :thin,
+                                     :pattern_fg_color => :yellow,
+                                     :pattern => 1
+                                    
+   
+    
+                                     
+  
+    
+    
+    sheet1.row(0).default_format = format
+    sheet1.row(0).height = 30
+    sheet1.column(0).width =15
+   
 
     
     
@@ -53,7 +72,10 @@ class AlbumsController < ApplicationController
     sheet1[0,skucloum]="SKU"
 
     str.each_with_index do |f,num|
-      sheet1[0,imgcloum+num] = f
+      cnum = imgcloum+num
+      sheet1.column(cnum).width = columnwidth
+      sheet1[0,cnum] = f
+      
     end
     
     
@@ -87,11 +109,16 @@ class AlbumsController < ApplicationController
     
     skunum= csize.length
     code.each_with_index do |n,index|
+     
       if index==1
+        sheet1.row(1).height = rowheight
         sheet1[1,skucloum] = @album.name.upcase
+        
       end
       csize.each_with_index do |m,j|
-        sheet1[index*skunum+j+2,skucloum] = @album.name.upcase+n.upcase+"-"+m
+        rownum = index*skunum+j+2
+        sheet1.row(rownum).height = rowheight
+        sheet1[rownum,skucloum] = @album.name.upcase+n.upcase+"-"+m
         
       end
     end
