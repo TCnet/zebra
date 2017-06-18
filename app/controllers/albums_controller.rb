@@ -3,6 +3,7 @@ class AlbumsController < ApplicationController
  before_action :logged_in_user, only: [:index,:edit,:show, :create, :destroy]
  before_action :correct_album, only: [:show,:edit, :update, :destroy]
  include PhotosHelper
+ include AlbumsHelper
  require "spreadsheet"
  Spreadsheet.client_encoding = "UTF-8"  
  
@@ -25,6 +26,10 @@ class AlbumsController < ApplicationController
     skucloum = 0
     rowheight = 18
     columnwidth = 12
+    colormapcloum = 4
+    sizemapcloum = 3
+    
+    
 
     format = Spreadsheet::Format.new :size => 11,
                                      :vertical_align => :middle,
@@ -105,6 +110,34 @@ class AlbumsController < ApplicationController
      
     end
     code = strcode.split(' ')
+
+    # set size_map
+    sheet1[0,sizemapcloum] = "Size_map"
+    sizenum = csize.length
+    code.each_with_index do |f,index|
+      if index ==1
+      end
+
+      csize.each_with_index do |m,j|
+        rownum = index*sizenum +j +2
+        sheet1[rownum,sizemapcloum] = size_for(m)
+      end
+      
+    end
+
+    #设置color_map
+    sheet1[0,colormapcloum] = "Color_map"
+    colornum = csize.length
+    code.each_with_index do |f,index|
+      if index ==1
+      end
+
+      csize.each_with_index do |m,j|
+        rownum = index*colornum +j +2
+        sheet1[rownum,colormapcloum] = color_for(f)
+      end
+      
+    end
     #设置sku
     
     skunum= csize.length
