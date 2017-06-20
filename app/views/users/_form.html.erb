@@ -8,5 +8,12 @@
       <%= f.password_field :password, class: 'form-control' %>
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
+      <%= f.label :brand %>
+      <%= f.text_field :brand, class: 'form-control' %>
+       <%= f.label :note %>
+      <%= f.text_area :note,rows: 8, class: 'form-control' %>
+
+
+
       <%= f.submit yield(:button_text), class: "btn btn-primary" %>
       <% end %>

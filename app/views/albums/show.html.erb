@@ -17,8 +17,17 @@
 </div>
 <div>
   <%=form_for @album, url: { action: "exportexcel" }  do |f| %>
-  <%= text_field_tag "csize" %>
-   <%= f.submit "ExportExcel"%>
+  <div class="field">
+    <%= text_field_tag "csize","", class: 'form-control', placeholder: "ex:s m l xl"%>
+    <%= text_field_tag "ussize","", class: 'form-control', placeholder: "ex:8 10 12 14"%>
+    <%= text_field_tag "brand",@user_brand, class: 'form-control', placeholder: "ex:Xudom "%>
+     <%= text_field_tag "dname","", class: 'form-control', placeholder: "ex:Striped T-shirts "%>
+     <%= text_area_tag "dsize","",:class => "form-control",rows: 4, placeholder: "description size  ex:bust waist|70 78" %>
+     <%= text_area_tag "dnote",@user_note,:class => "form-control",rows: 4, placeholder: "description note  ex:note" %>
+
+
+</div>
+   <%= f.submit "ExportExcel",:class => "btn btn-large btn-primary" %>
   <% end %>
 </div>
  <div class="photo_list">

@@ -22,12 +22,14 @@ class AlbumsController < ApplicationController
     sheet1 = book.create_worksheet
     sheet1.name = 'Template'
     csize=params["csize"].upcase.split(' ')
-    imgcloum=5
+    imgcloum= 7
     skucloum = 0
     rowheight = 18
     columnwidth = 12
     colormapcloum = 4
     sizemapcloum = 3
+    decriptioncloum = 6
+    
     
     
 
@@ -66,6 +68,7 @@ class AlbumsController < ApplicationController
        
       
     # end
+    #set imgurl title
     title="MainImgUrl"
     7.times do |f|
       title += " "
@@ -84,7 +87,7 @@ class AlbumsController < ApplicationController
     end
     
     
-
+   
     
 
     
@@ -110,6 +113,37 @@ class AlbumsController < ApplicationController
      
     end
     code = strcode.split(' ')
+    
+    ussize = to_us_size_for  params["ussize"],csize,"Tag Size "
+    
+    
+    #set description  
+    sheet1[0,decriptioncloum] = "Description"
+    #dearray= twoarray_for params["dsize"]
+    # render  dearray[0][3]
+    brand = params["brand"]
+    dnote = params["dnote"]
+    dname = params["dname"]
+    dest = "";
+    if !brand.empty?
+      dest +="Brand: <strong>"+brand+"</strong><br><br>\n"
+    end
+    if !dname.empty?
+      dest +="<strong>"+dname+"</strong><br>\n"
+    end
+    dest += description_size_for params["dsize"],ussize
+    if !dnote.empty?
+      dest+="\n<br>"
+      dest+=dnote
+    end
+    sheet1[1,decriptioncloum] = dest
+    code.each_with_index do |f,n|
+      csize.each_with_index do |e,m|
+        sheet1[n*csize.length+m+2,decriptioncloum] = dest
+      end
+    end
+    
+    
 
     # set size_map
     sheet1[0,sizemapcloum] = "Size_map"
@@ -232,6 +266,9 @@ class AlbumsController < ApplicationController
   def show
     
     @album = Album.find(params[:id])
+    @user_brand = current_user.brand
+    @user_note = current_user.note
+    
     photo_url = []
     @album.photos.each do |w|
       photo_url << geturl(w.picture.url)
