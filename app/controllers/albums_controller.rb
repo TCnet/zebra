@@ -22,52 +22,69 @@ class AlbumsController < ApplicationController
     sheet1 = book.create_worksheet
     sheet1.name = 'Template'
     csize=params["csize"].upcase.split(' ')
-    imgcloum= 7
-    skucloum = 0
+    cloumbegin = 1
+    titlecloum = 1
+
+    cloum_item_type = cloumbegin -1
+    skucloum = cloumbegin
+    cloum_upc=1+cloumbegin
+    cloum_upcname=2+cloumbegin
+    cloum_brand = 3+cloumbegin
+    cloum_item_name=4+cloumbegin
+    
+    cloum_color= 5+cloumbegin
+    cloum_department =6+cloumbegin
+    cloum_size = 7+cloumbegin
+    cloum_s_price =8+cloumbegin
+    cloum_quantity = 9+cloumbegin
+    imgcloum= 10+cloumbegin
+
+    
     rowheight = 18
     columnwidth = 12
-    colormapcloum = 4
-    sizemapcloum = 3
-    decriptioncloum = 6
+    
+
+    cloum_parent_child = 19+cloumbegin
+    cloum_parent_sku = 20+cloumbegin
+    cloum_relationship_type=21+cloumbegin
+    cloum_theme =22+cloumbegin
+    decriptioncloum = 23+cloumbegin
+
+    colormapcloum = 32+cloumbegin
+    sizemapcloum = 34+cloumbegin
+    parentsku = @album.name.upcase
+    brand = params["brand"]
+    dnote = params["dnote"]
+    dname = params["dname"]
+    fullname = params["fullname"]
+
     
     
+
     
+    # add format 
 
     format = Spreadsheet::Format.new :size => 11,
                                      :vertical_align => :middle,
                                      :border => :thin,
                                      :pattern_fg_color => :yellow,
                                      :pattern => 1
-                                    
-   
-    
-                                     
-  
-    
-    
+            
     sheet1.row(0).default_format = format
     sheet1.row(0).height = 30
     sheet1.column(0).width =15
    
-
-    
-    
     @photos= @album.photos
     sizeob = @photos.find_by(name: "size.jpg")
     photos = @album.photos
+    photos=photos.order("name ASC")
     if sizeob
       photos = photos.where("name <>?","size.jpg")
 
     end
     path= File.join Rails.root, 'public/'
 
-   # @photos.each do |photo|
-     # sheet1.row[i,0]= photo.picture.url
-     # i= i+1
-      
-       
-      
-    # end
+   
     #set imgurl title
     title="MainImgUrl"
     7.times do |f|
@@ -87,13 +104,7 @@ class AlbumsController < ApplicationController
     end
     
     
-   
-    
-
-    
-    
-    
-    
+       
     code=[]
     strcode = ''
     #获取颜色分组
@@ -107,23 +118,18 @@ class AlbumsController < ApplicationController
         
       end
 
-      #phname[:(f.name[0,2])][:(i)]=f.name
-      
-      #sheet1[1,i] = geturl(f.picture.url)
-     
+          
     end
+    
     code = strcode.split(' ')
     
     ussize = to_us_size_for  params["ussize"],csize,"Tag Size "
-    
     
     #set description  
     sheet1[0,decriptioncloum] = "Description"
     #dearray= twoarray_for params["dsize"]
     # render  dearray[0][3]
-    brand = params["brand"]
-    dnote = params["dnote"]
-    dname = params["dname"]
+    
     dest = "";
     if !brand.empty?
       dest +="Brand: <strong>"+brand+"</strong><br><br>\n"
@@ -146,7 +152,7 @@ class AlbumsController < ApplicationController
     
 
     # set size_map
-    sheet1[0,sizemapcloum] = "Size_map"
+    sheet1[0,sizemapcloum] = "size_map"
     sizenum = csize.length
     code.each_with_index do |f,index|
       if index ==1
@@ -154,13 +160,13 @@ class AlbumsController < ApplicationController
 
       csize.each_with_index do |m,j|
         rownum = index*sizenum +j +2
-        sheet1[rownum,sizemapcloum] = size_for(m)
+        sheet1[rownum,sizemapcloum] = size_map_for(m)
       end
       
     end
 
     #设置color_map
-    sheet1[0,colormapcloum] = "Color_map"
+    sheet1[0,colormapcloum] = "color_map"
     colornum = csize.length
     code.each_with_index do |f,index|
       if index ==1
@@ -168,7 +174,7 @@ class AlbumsController < ApplicationController
 
       csize.each_with_index do |m,j|
         rownum = index*colornum +j +2
-        sheet1[rownum,colormapcloum] = color_for(f)
+        sheet1[rownum,colormapcloum] = color_map_for(f)
       end
       
     end
@@ -179,7 +185,7 @@ class AlbumsController < ApplicationController
      
       if index==1
         sheet1.row(1).height = rowheight
-        sheet1[1,skucloum] = @album.name.upcase
+        sheet1[1,skucloum] = parentsku
         
       end
       csize.each_with_index do |m,j|
@@ -241,9 +247,57 @@ class AlbumsController < ApplicationController
       
     end
     
+    #set upc 
+    sheet1[0,cloum_upc]="external_product_id"
+    sheet1[0,cloum_upcname] = "external_product_id_type"
+    sheet1[0,cloum_brand] = "brand_name"
+    sheet1[0,cloum_department] = "department_nam"
+    sheet1[0,cloum_parent_sku] = "parent_sku"
+    sheet1[0,cloum_parent_child] = "parent_child"
+    sheet1[0,cloum_relationship_type] = "relationship_type"
+    sheet1[0,cloum_theme] = "variation_theme"
+    sheet1[0,cloum_quantity]= "quantity"
+    sheet1[0,cloum_s_price] = "standard_price"
+    sheet1[0,cloum_item_name]="item_name"
+    sheet1[0,cloum_color] = "color_name"
+    sheet1[0,cloum_size] = "size_name"
+    sheet1[0,cloum_item_type] = "item_type"
+
+    sheet1[titlecloum,cloum_parent_child] = "Parent"
+    sheet1[titlecloum,cloum_relationship_type]= "Variation"
+    sheet1[titlecloum,cloum_upcname] = "UPC"
+    sheet1[titlecloum,cloum_brand] = brand
+    sheet1[titlecloum,cloum_department] = "womens"
+    
+    code.each_with_index do |f,n|
+      csize.each_with_index do |e,m|
+        num = n*csize.length+m+titlecloum+1
+        colorname = color_for(f)
+        sizename = size_for(e,m,"-", params["ussize"])
+        
+        brandname = params["brand"]
+        sheet1[num,cloum_upcname] = "UPC"
+        sheet1[num,cloum_brand]= brand
+        sheet1[num,cloum_department]="womens"
+        sheet1[num,cloum_parent_sku]= parentsku
+        sheet1[num,cloum_parent_child]="Child"
+        sheet1[num,cloum_relationship_type]="Variation"
+        sheet1[num,cloum_theme]="sizecolor"
+        sheet1[num,cloum_quantity]= 50
+        sheet1[num,cloum_color]=colorname
+        sheet1[num,cloum_size] = sizename
+        sheet1[num,cloum_item_name] = fullname_for(brandname,fullname,colorname,sizename.tr("-"," "))
+        
+        
+        
+      end
+    end
 
     
+    
+    
 
+    #create excel
     filename = @album.name+".xls";
 
     file_path=path+"uploads/export/"+filename

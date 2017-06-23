@@ -2,7 +2,7 @@
 module AlbumsHelper
 
 
-  def color_for(name)
+  def color_map_for(name)
     downname = name.downcase
     case downname
     when "lb","be","na"
@@ -14,7 +14,7 @@ module AlbumsHelper
     when "wh"
       "White"
     when "gy"
-      "Gray"
+      "Grey"
     when "gn"
       "Green"
     when "pe"
@@ -33,12 +33,12 @@ module AlbumsHelper
     end
   end
 
-  def size_for (size)
+  def size_map_for (size)
     case size.downcase
     when "s","28"
       "Small"
     when "m", "29"
-      "Middle"
+      "Medium"
     when "l", "30"
       "Large"
     when "xl", "31"
@@ -54,6 +54,60 @@ module AlbumsHelper
     else
       "Unknown"
     end 
+  end
+
+  def color_for (color)
+    case color.downcase
+    when "bl"
+      "Black"
+    when "wh"
+      "White"
+    when "re"
+      "Red"
+    when "gn"
+      "Green"
+    when "gr"
+      "Grey"
+    when "ye"
+      "Yellow"
+    when "be"
+      "Blue"
+    when "lb"
+      "Light Blue"
+    when "wr"
+      "Red Wine"
+    when "db"
+      "Dark Blue"
+    when "kh"
+      "Khaki"
+    when "br"
+      "Brown"
+    when "pi"
+      "Pink"
+    when "pe"
+      "Purple"
+    when "na"
+      "Navy"
+      
+    else
+      "Unkonwn"
+    end
+
+    
+  end
+
+  def fullname_for(brand,name,color,size)
+    return brand+" "+name+" "+color +" "+ size
+  end
+
+  #size for the us
+  def size_for(size,n,separate, usszie)
+    ob = usszie.split(' ')
+    if !usszie.empty? && ob.length > n     
+      return "US"+separate+ob[n]     
+    else
+      return size.upcase
+    end
   end
 
   def twoarray_for(dsize)
@@ -84,39 +138,47 @@ module AlbumsHelper
   end
 
 
+  
+
+
   def description_size_for(desize,csize)
     #set size for description
-    dearray = twoarray_for desize
     destr=""
-    csizelen = csize.length
-    csize.each_with_index do |f,num|
-      destr += f;
-      destr +=": "
+    
+    if !desize.empty?
+      dearray = twoarray_for desize
+      csizelen = csize.length
+      csize.each_with_index do |f,num|
+        destr += f;
+        destr +=": "
 
-      dellen = dearray[0].length
-      
-      dellen.times do |e|
+        dellen = dearray[0].length
         
-        destr += dearray[0][e]
-        destr +=" "
-        dearray.length.times do |c|
-          if c > 0&& c-1==e
-            destr += to_in(dearray[c][num])
-            
+        dellen.times do |e|
+          
+          destr += dearray[0][e]
+          destr +=" "
+          dearray.length.times do |c|
+            if c > 0&& c-1==e
+              destr += to_in(dearray[c][num])
+              
+            end
           end
-        end
-        if e==dellen-1
-          destr +="."
-        else
-          destr +=","
+          if e==dellen-1
+            destr +="."
+          else
+            destr +=","
+          end
+          
         end
         
-      end
-      
-      
-      destr+="<br>"
-      destr +="\n"
-      
+        
+        destr+="<br>"
+        destr +="\n"
+        
+    end
+    
+    
     end
 
     return destr
