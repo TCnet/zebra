@@ -247,7 +247,8 @@ class AlbumsController < ApplicationController
       
     end
     
-    #set upc 
+    #set upc
+    brandname = params["brand"]
     sheet1[0,cloum_upc]="external_product_id"
     sheet1[0,cloum_upcname] = "external_product_id_type"
     sheet1[0,cloum_brand] = "brand_name"
@@ -268,6 +269,7 @@ class AlbumsController < ApplicationController
     sheet1[titlecloum,cloum_upcname] = "UPC"
     sheet1[titlecloum,cloum_brand] = brand
     sheet1[titlecloum,cloum_department] = "womens"
+    sheet1[titlecloum,cloum_item_name] = fullname_for(brandname,fullname,"","")
     
     code.each_with_index do |f,n|
       csize.each_with_index do |e,m|
@@ -275,7 +277,7 @@ class AlbumsController < ApplicationController
         colorname = color_for(f)
         sizename = size_for(e,m,"-", params["ussize"])
         
-        brandname = params["brand"]
+        
         sheet1[num,cloum_upcname] = "UPC"
         sheet1[num,cloum_brand]= brand
         sheet1[num,cloum_department]="womens"

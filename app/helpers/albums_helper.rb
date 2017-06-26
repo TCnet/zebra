@@ -5,9 +5,9 @@ module AlbumsHelper
   def color_map_for(name)
     downname = name.downcase
     case downname
-    when "lb","be","na"
+    when "lb","be","na","db"
       "Blue"
-    when "re","wr"
+    when "re","wr","mr"
       "Red"
     when "bl"
       "Black"
@@ -23,7 +23,7 @@ module AlbumsHelper
       "Yellow"
     when "pi"
       "Pink"
-    when "br","ka"
+    when "br","kh"
       "Brown"
     
       
@@ -66,8 +66,10 @@ module AlbumsHelper
       "Red"
     when "gn"
       "Green"
-    when "gr"
+    when "gy"
       "Grey"
+    when "db"
+      "Dark Blue"
     when "ye"
       "Yellow"
     when "be"
@@ -88,6 +90,12 @@ module AlbumsHelper
       "Purple"
     when "na"
       "Navy"
+    when "mr"
+      "Rose Red"
+    when "kh"
+      "Khaki"
+
+     
       
     else
       "Unkonwn"
