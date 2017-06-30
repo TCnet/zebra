@@ -9,11 +9,11 @@ module AlbumsHelper
       "Blue"
     when "re","wr","mr"
       "Red"
-    when "bl"
+    when "bl","bh"
       "Black"
     when "wh"
       "White"
-    when "gy"
+    when "gy","dg"
       "Grey"
     when "gn"
       "Green"
@@ -94,6 +94,10 @@ module AlbumsHelper
       "Rose Red"
     when "kh"
       "Khaki"
+    when "bh"
+      "Black And White"
+    when "dg"
+      "Dark Green"
 
      
       

@@ -18,10 +18,12 @@ class AlbumsController < ApplicationController
 
   def exportexcel
     @album = Album.find(params[:id])
+    
+    
     book = Spreadsheet::Workbook.new
     sheet1 = book.create_worksheet
     sheet1.name = 'Template'
-    csize=params["csize"].upcase.split(' ')
+    csize = album_params[:csize].upcase.split(' ')
     cloumbegin = 1
     titlecloum = 1
 
@@ -53,10 +55,10 @@ class AlbumsController < ApplicationController
     colormapcloum = 32+cloumbegin
     sizemapcloum = 34+cloumbegin
     parentsku = @album.name.upcase
-    brand = params["brand"]
-    dnote = params["dnote"]
-    dname = params["dname"]
-    fullname = params["fullname"]
+    brand = album_params[:brand]
+    dnote = album_params[:dnote]
+    dname = album_params[:dname]
+    fullname = album_params[:fullname]
 
     
     
@@ -123,7 +125,7 @@ class AlbumsController < ApplicationController
     
     code = strcode.split(' ')
     
-    ussize = to_us_size_for  params["ussize"],csize,"Tag Size "
+    ussize = to_us_size_for album_params[:ussize],csize,"Tag Size "
     
     #set description  
     sheet1[0,decriptioncloum] = "Description"
@@ -137,7 +139,7 @@ class AlbumsController < ApplicationController
     if !dname.empty?
       dest +="<strong>"+dname+"</strong><br>\n"
     end
-    dest += description_size_for params["dsize"],ussize
+    dest += description_size_for album_params[:description],ussize
     if !dnote.empty?
       dest+="\n<br>"
       dest+=dnote
@@ -248,7 +250,7 @@ class AlbumsController < ApplicationController
     end
     
     #set upc
-    brandname = params["brand"]
+    brandname = brand
     sheet1[0,cloum_upc]="external_product_id"
     sheet1[0,cloum_upcname] = "external_product_id_type"
     sheet1[0,cloum_brand] = "brand_name"
@@ -275,7 +277,7 @@ class AlbumsController < ApplicationController
       csize.each_with_index do |e,m|
         num = n*csize.length+m+titlecloum+1
         colorname = color_for(f)
-        sizename = size_for(e,m,"-", params["ussize"])
+        sizename = size_for(e,m,"-", album_params[:ussize])
         
         
         sheet1[num,cloum_upcname] = "UPC"
@@ -308,6 +310,7 @@ class AlbumsController < ApplicationController
       File.delete(file_path)
     end
     book.write(file_path)
+    @album.update_attributes(album_params)
 
     
     #flash[:success] = "finished"
@@ -322,9 +325,14 @@ class AlbumsController < ApplicationController
   def show
     
     @album = Album.find(params[:id])
-    @user_brand = current_user.brand
-    @user_note = current_user.note
-    
+   # @user_brand = current_user.brand
+   # @user_note = current_user.note
+    if !@album.brand?
+      @album.brand = current_user.brand
+    end
+    if !@album.dnote?
+      @album.dnote = current_user.note
+    end
     photo_url = []
     @album.photos.each do |w|
       photo_url << geturl(w.picture.url)
@@ -350,6 +358,12 @@ class AlbumsController < ApplicationController
 
   def edit
     @album = Album.find(params[:id])
+    if !@album.brand?
+      @album.brand=current_user.brand
+    end
+    if !@album.dnote?
+      @album.dnote = current_user.note
+    end
   end
 
   def destroy
@@ -372,7 +386,7 @@ class AlbumsController < ApplicationController
   
   private
     def album_params
-      params.require(:album).permit(:name, :summary)
+      params.require(:album).permit(:name, :summary,:csize,:ussize,:brand,:fullname,:dname,:description,:dnote)
     end
 
     def correct_album
