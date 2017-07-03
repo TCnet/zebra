@@ -1,8 +1,18 @@
 <li>
-      <%= gravatar_for user, size: 50 %>
+  <%= gravatar_for user, size: 50 %>
+<% if !user.activated %>
+<%= link_to user.name, user, {class: "grey"} %>
+<% else %>
 <%= link_to user.name, user %>
-<% if current_user.admin? && !current_user?(user) %>
-        | <%= link_to "delete", user, method: :delete,
-                                      data: { confirm: "You sure?" } %>
+<% end %>
+
+      <% if current_user.admin? && !current_user?(user) %>
+
+
+
+      |
+      <%= link_to "delete", user, method: :delete,
+              data: { confirm: "You sure?" } %>
+
 <% end %>
 </li>

@@ -191,7 +191,8 @@ a{
 padding: 0;
 } }
 .users.follow { padding: 0;
-}
+              }
+
 
 
 
@@ -230,6 +231,9 @@ li {
         padding: 10px 0;
         border-bottom: 1px solid $gray-lighter;
 }
+.grey{
+    color:#cccccc;
+ }
 }
 
 /* microposts */

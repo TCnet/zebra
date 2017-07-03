@@ -14,6 +14,12 @@ class AlbumsController < ApplicationController
 
   def new
     @album = Album.new
+    if !@album.brand?
+      @album.brand = current_user.brand
+    end
+    if !@album.dnote?
+      @album.dnote = current_user.note
+    end
   end
 
   def exportexcel
@@ -267,7 +273,8 @@ class AlbumsController < ApplicationController
     sheet1[0,cloum_item_type] = "item_type"
 
     sheet1[titlecloum,cloum_parent_child] = "Parent"
-    sheet1[titlecloum,cloum_relationship_type]= "Variation"
+    #sheet1[titlecloum,cloum_relationship_type]= "Variation"
+    sheet1[titlecloum,cloum_theme] = "sizecolor"
     sheet1[titlecloum,cloum_upcname] = "UPC"
     sheet1[titlecloum,cloum_brand] = brand
     sheet1[titlecloum,cloum_department] = "womens"
@@ -359,7 +366,7 @@ class AlbumsController < ApplicationController
   def edit
     @album = Album.find(params[:id])
     if !@album.brand?
-      @album.brand=current_user.brand
+      @album.brand = current_user.brand
     end
     if !@album.dnote?
       @album.dnote = current_user.note

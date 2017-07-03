@@ -18,9 +18,15 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   resources :users do
     member do
-      get :following, :followers
+      get :following, :followers, :active
+      match :active, to: :active, via: [:post, :patch]
+      match :unactive, to: :unactive, via: [:post, :patch]
     end
   end
+
+  
+
+  
   get '/clearw', to: 'clears#new'
   post '/clearw', to: 'clears#create'
   resources :account_activations, only: [:edit]
@@ -37,6 +43,7 @@ Rails.application.routes.draw do
   resources :products
 
   resources :upcs
+  
   resources :albums do
     member do
       
