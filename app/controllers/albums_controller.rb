@@ -300,7 +300,7 @@ class AlbumsController < ApplicationController
         sheet1[num,cloum_quantity]= 50
         sheet1[num,cloum_color]=colorname
         sheet1[num,cloum_size] = sizename
-        sheet1[num,cloum_item_name] = fullname_for(brandname,fullname,colorname,sizename.tr("-"," "))
+        sheet1[num,cloum_item_name] = fullname_for(brandname,fullname,colorname,sizename.tr("-"," ").tr("/","-"))
         sheet1[num,cloum_keywords] = album_params[:keywords].tr("\n",",")
         
         
