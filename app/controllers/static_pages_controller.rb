@@ -1,4 +1,8 @@
 class StaticPagesController < ApplicationController
+
+  include AlbumsHelper
+
+  
   def home
     @users = User.where(activated: true).order(:id).take(8)
     
@@ -10,6 +14,7 @@ class StaticPagesController < ApplicationController
   end
 
   def help
+    @colors = %w{be lb na db tu re wr mr bl bh wh gy dg gn pe ye pi or br kh}
   end
 
   def about
