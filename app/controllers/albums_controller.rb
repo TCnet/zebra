@@ -60,6 +60,7 @@ class AlbumsController < ApplicationController
 
     colormapcloum = 32+cloumbegin
     cloum_keywords = 31 +cloumbegin
+    cloum_points = 30 + cloumbegin
     sizemapcloum = 34+cloumbegin
     parentsku = @album.name.upcase
     brand = album_params[:brand]
@@ -273,6 +274,15 @@ class AlbumsController < ApplicationController
     sheet1[0,cloum_size] = "size_name"
     sheet1[0,cloum_item_type] = "item_type"
     sheet1[0,cloum_keywords] = "generic_keywords"
+    5.times do |f|
+      sheet1[0,cloum_points-f] = "bullet_point"+(5-f).to_s
+      
+    end
+    points = points_for album_params[:points]
+    points.each_with_index do |f,n|
+      sheet1[titlecloum,cloum_points-4+n] = f 
+    end
+    
 
     sheet1[titlecloum,cloum_parent_child] = "Parent"
     #sheet1[titlecloum,cloum_relationship_type]= "Variation"
@@ -289,7 +299,9 @@ class AlbumsController < ApplicationController
         colorname = color_for(f)
         sizename = size_for(e,m,"-", album_params[:ussize])
         
-        
+        points.each_with_index do |f,n|
+          sheet1[num,cloum_points-4+n] = f 
+        end
         sheet1[num,cloum_upcname] = "UPC"
         sheet1[num,cloum_brand]= brand
         sheet1[num,cloum_department]="womens"
@@ -329,7 +341,8 @@ class AlbumsController < ApplicationController
     File.open(file_path, 'r') do |f|
       send_data f.read.force_encoding('BINARY'), :filename => filename, :type => "application/xls", :disposition => "inline"
     end
-    #render :action=> "show" 
+    #render :action=> "show"
+    #redirect_to "show"
     
   end
 
@@ -349,6 +362,9 @@ class AlbumsController < ApplicationController
       photo_url << geturl(w.picture.url)
     end
     @photourls = photo_url.join(' ')
+
+    @herf = herf_for @album.summary
+    
     
    
   end
@@ -397,7 +413,7 @@ class AlbumsController < ApplicationController
   
   private
     def album_params
-      params.require(:album).permit(:name, :summary,:csize,:ussize,:brand,:fullname,:dname,:description,:dnote,:keywords)
+      params.require(:album).permit(:name, :summary,:csize,:ussize,:brand,:fullname,:dname,:description,:dnote,:keywords,:points)
     end
 
     def correct_album

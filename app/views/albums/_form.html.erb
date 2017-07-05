@@ -15,7 +15,8 @@
      <%= f.label :dname %>
      <%= f.text_field :dname, class: 'form-control' ,placeholder:"Short name for description"%>
      <%= f.label :description %>
-     <%= f.text_area :description, class: 'form-control',placeholder: "Bust Waist|80 90|90 100" %>
+     <%= f.text_area :description, class: 'form-control',placeholder: "Bust Waist|80 90|90 100 can use enter instead | to separate " %>
+      <%= f.text_area :points, class: 'form-control',rows: 3,placeholder: "bullet_points use | or Enter to separate" %>
       <%= f.label :keywords %>
      <%= f.text_area :keywords, class: 'form-control',placeholder: "" %>
      <%= f.label :dnote %>

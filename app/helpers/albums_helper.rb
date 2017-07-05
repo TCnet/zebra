@@ -130,7 +130,7 @@ module AlbumsHelper
 
   def twoarray_for(dsize)
     
-    ob = dsize.split('|')
+    ob = dsize.tr("\n","|").split('|')
     result = Array.new
     ob.each_with_index do |f,n|
       
@@ -139,6 +139,8 @@ module AlbumsHelper
     end
     return result
   end
+
+  
 
   def to_in(cm)
     (cm.to_f*0.3937008).round(2).to_s+"\""
@@ -152,6 +154,20 @@ module AlbumsHelper
       ob = csize
     end
     return ob
+    
+  end
+
+  def points_for(points)
+    ob = points.tr("\n","|").split('|')
+    #ob= points.split('|')
+   # if ob.length==1
+     # ob = points.split('\n')
+    #end
+    return ob
+  end
+
+  def herf_for(str)
+    ob = str.tr("\n","|").split('|')
     
   end
 
@@ -194,8 +210,7 @@ module AlbumsHelper
         destr+="<br>"
         destr +="\n"
         
-    end
-    
+    end    
     
     end
 
