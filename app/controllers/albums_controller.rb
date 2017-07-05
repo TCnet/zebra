@@ -281,7 +281,7 @@ class AlbumsController < ApplicationController
     sheet1[titlecloum,cloum_brand] = brand
     sheet1[titlecloum,cloum_department] = "womens"
     sheet1[titlecloum,cloum_item_name] = fullname_for(brandname,fullname,"","")
-    sheet1[titlecloum,cloum_keywords] = album_params[:keywords]
+    sheet1[titlecloum,cloum_keywords] = album_params[:keywords].tr("\n",",")
     
     code.each_with_index do |f,n|
       csize.each_with_index do |e,m|
@@ -301,7 +301,7 @@ class AlbumsController < ApplicationController
         sheet1[num,cloum_color]=colorname
         sheet1[num,cloum_size] = sizename
         sheet1[num,cloum_item_name] = fullname_for(brandname,fullname,colorname,sizename.tr("-"," "))
-        sheet1[num,cloum_keywords] = album_params[:keywords]
+        sheet1[num,cloum_keywords] = album_params[:keywords].tr("\n",",")
         
         
         
