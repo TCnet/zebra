@@ -13,12 +13,13 @@
     <%= f.label :fullname %>
     <%= f.text_field :fullname, class: 'form-control' ,placeholder:"Fullname"%>
      <%= f.label :dname %>
-     <%= f.text_field :dname, class: 'form-control' ,placeholder:"Short name for description"%>
+     <%= f.text_area :dname, class: 'form-control',rows: 4 ,placeholder:"Short name for description"%>
      <%= f.label :description %>
-     <%= f.text_area :description, class: 'form-control',placeholder: "Bust Waist|80 90|90 100 can use enter instead | to separate " %>
-      <%= f.text_area :points, class: 'form-control',rows: 3,placeholder: "bullet_points use | or Enter to separate" %>
+     <%= f.text_area :description, class: 'form-control',rows: 4,placeholder: "Bust Waist|80 90|90 100 can use enter instead | to separate " %>
+ <%= f.label :points %>
+     <%= f.text_area :points, class: 'form-control',rows: 4,placeholder: "bullet_points use | or Enter to separate" %>
       <%= f.label :keywords %>
-     <%= f.text_area :keywords, class: 'form-control',placeholder: "" %>
+     <%= f.text_area :keywords, class: 'form-control',rows: 4,placeholder: "" %>
      <%= f.label :dnote %>
      <%= f.text_area :dnote, class: 'form-control',placeholder: "Note" %>
 

@@ -145,8 +145,11 @@ class AlbumsController < ApplicationController
       dest +="Brand: <strong>"+brand+"</strong><br><br>\n"
     end
     if !dname.empty?
-      dest +="<strong>"+dname+"</strong><br>\n"
+      dest += dname.gsub("\n","<br>") +"<br>\n"
     end
+    
+  
+    
     dest += description_size_for album_params[:description],ussize
     if !dnote.empty?
       dest+="\n<br>"
