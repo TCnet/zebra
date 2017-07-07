@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  album: one
+photo1:
+  name: HWASH0001BE_1
+  album: album1
 
-two:
-  name: MyString
-  album: two
+photo2:
+  name: HWASH0001BE_2
+  album: album1

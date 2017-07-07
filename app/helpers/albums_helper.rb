@@ -1,6 +1,39 @@
 # coding: utf-8
 module AlbumsHelper
 
+  def code_for(photos,stylecode)
+    code=[]
+    strcode = ''
+    
+    if stylecode.nil? || stylecode.empty?
+      stylecode="$$xx"
+    end
+    n  = stylecode.index("$")
+    m = stylecode.scan(/[$]/).length
+    #获取颜色分组
+    
+    photos.each do |f|
+
+      if f.name.length < stylecode.length  
+        name = f.name[0,2].downcase
+      else
+        name = f.name[n,m].downcase
+      end
+      
+      if !strcode.include? name
+        strcode += name
+        strcode +=" "
+        
+      end
+
+      
+    end
+    
+    code = strcode.split(' ')
+    return code
+    
+    
+  end
 
   def color_map_for(name)
     downname = name.downcase

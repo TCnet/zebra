@@ -115,23 +115,9 @@ class AlbumsController < ApplicationController
     
     
        
-    code=[]
-    strcode = ''
-    #获取颜色分组
-    photos.each do |f|
-      name=f.name[0,2].downcase
-     
-
-      if !strcode.include? name
-        strcode += f.name[0,2]
-        strcode +=" "
-        
-      end
-
-          
-    end
     
-    code = strcode.split(' ')
+    
+    code = code_for photos, current_user.imgrule
     
     ussize = to_us_size_for album_params[:ussize],csize,"Tag Size "
     

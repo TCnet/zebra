@@ -9,6 +9,7 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
   include ApplicationHelper
+  include AlbumsHelper
 
   # 如果用户已登录，返回 true
   def is_logged_in?
