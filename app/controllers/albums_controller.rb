@@ -12,6 +12,8 @@ class AlbumsController < ApplicationController
     @albums = current_user.albums.paginate(page: params[:page])
   end
 
+  
+
   def new
     @album = Album.new
     if !@album.brand?
@@ -332,7 +334,13 @@ class AlbumsController < ApplicationController
     end
     #render :action=> "show"
     #redirect_to "show"
+
+    #flash[:success] = "Export excel sucessful!"
+    #redirect_to @album and return
+    #redirect_to(:action => "show") and return
+    #redirect_to (:back), :notice => "problem with the start_date and end_date" and return
     
+    #redirect_to root_url
   end
 
   def show

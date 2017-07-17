@@ -1,0 +1,35 @@
+<%= form_for(@inventory) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+    <%= f.label :summary %>
+    <%= f.text_area :summary, class: 'form-control',placeholder: "Compose summary" %>
+    <%= f.label :csize %>
+    <%= f.text_field :csize, class: 'form-control',placeholder: "s m l xl" %>
+    <%= f.label :ussize %>
+    <%= f.text_field :ussize, class: 'form-control' ,placeholder:"8 10 12 14"%>
+    <%= f.label :brand %>
+    <%= f.text_field :brand, class: 'form-control' ,placeholder:"Your Brand name"%>
+    <%= f.label :fullname %>
+    <%= f.text_field :fullname, class: 'form-control' ,placeholder:"Fullname"%>
+     <%= f.label :points %>
+     <%= f.text_area :points, class: 'form-control',rows: 4,placeholder: "bullet_points use | or Enter to separate" %>
+      <%= f.label :keywords %>
+      <%= f.text_area :keywords, class: 'form-control',rows: 4,placeholder: "" %>
+
+     <%= f.label :dname %>
+     <%= f.text_area :dname, class: 'form-control',rows: 4 ,placeholder:"Short name for description"%>
+     <%= f.label :description %>
+     <%= f.text_area :description, class: 'form-control',rows: 4,placeholder: "Bust Waist|80 90|90 100 can use enter instead | to separate " %>
+
+
+     <%= f.label :dnote %>
+     <%= f.text_area :dnote, class: 'form-control',placeholder: "Note" %>
+
+
+
+
+
+
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+ <% end %>

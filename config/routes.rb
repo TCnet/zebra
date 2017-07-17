@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
   resources :albums
   resources :photos,          only: [:new, :create, :destroy]
-
+  
   post '/upload', to: 'upload#create'
   post '/uploads_finish', to: 'upload#finish'
   delete '/delete_uploads', to: 'upload#destroy'
@@ -46,10 +46,15 @@ Rails.application.routes.draw do
   
   resources :albums do
     member do
-      
+     
       match :exportexcel, to: :exportexcel, via: [:post, :patch]
     end
   end
+
+  resources :photos do
+    delete :destroy_multiple, action: :destroy, on: :collection
+  end
+  
   
 
   

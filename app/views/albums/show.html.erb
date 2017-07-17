@@ -39,10 +39,20 @@
    <%= f.submit "ExportExcel",:class => "btn btn-large btn-primary" %>
   <% end %>
 </div>
- <div class="photo_list">
-      <ul id="phtot_list">
-       <%= render @album.photos%>
+<div class="photo_list">
+  <%= form_tag destroy_multiple_photos_path, method: :delete do %>
+
+ <div class="check"> <input type="checkbox"   onclick="toggle_checkall('photo', this.checked);" />Select All
+</div>
+ <ul id="phtot_list">
+
+
       </ul>
+ <table class="table">
+
+ <%= render @album.photos%>
+     </table>     <%= submit_tag "删除选中" %>
+      <% end %>
  </div>
 
  <div class="photo_url">
@@ -73,4 +83,16 @@
 
 
 
+</script>
+<script>
+function toggle_checkall(field_name, state) {
+  var checkboxes = document.getElementsByTagName('input');
+  var count = checkboxes.length;
+  for (var i = 0; i < count; i++) {
+    if (checkboxes[i].type == "checkbox"
+        && checkboxes[i].name == field_name + "_ids[]") {
+      checkboxes[i].checked = state;
+    }
+  }
+}
 </script>

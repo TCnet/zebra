@@ -1,0 +1,48 @@
+<% provide(:title, 'Photos') %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/album_menu' %>
+  </aside>
+  <div class="col-md-9">
+
+    <div class="col-md-6 col-md-offset-2">
+ <h1>Manage photo</h1>
+ <section class="photo_form">
+<%= form_tag destroy_multiple_photos_path, method: :delete do %>
+<%= submit_tag "删除选中" %>
+<input type="checkbox" onclick="toggle_checkall('photo', this.checked);" />
+
+<% @photos.each do |photo| %>
+<li>
+
+  <%= image_tag photo.picture.url(:thumb)  if photo.picture? %> <%= check_box_tag "photo_ids[]", photo.id %>
+  <span>
+  <input id="photo_<%=photo.id%>" type=text value=<%= geturl photo.picture.url if photo.picture? %> />
+
+  </span>
+  <button id="bt_<%=photo.id%>" onClick="CopyURL('photo_<%=photo.id%>')" >Copy</button>
+
+
+</li>
+<% end %>
+<% end %>
+
+</section>
+    </div>
+
+  </div>
+
+</div>
+<script>
+function toggle_checkall(field_name, state) {
+  var checkboxes = document.getElementsByTagName('input');
+  var count = checkboxes.length;
+  for (var i = 0; i < count; i++) {
+    if (checkboxes[i].type == "checkbox"
+        && checkboxes[i].name == field_name + "_ids[]") {
+      checkboxes[i].checked = state;
+    }
+  }
+}
+</script>
