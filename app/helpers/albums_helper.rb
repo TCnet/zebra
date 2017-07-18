@@ -1,6 +1,14 @@
 # coding: utf-8
 module AlbumsHelper
 
+ 
+
+  def keywords_for(num,keywords)
+    
+    s= keywords.in_groups(num, false) {|group| p group}
+    
+  end
+
   def code_for(photos,stylecode)
     code=[]
     strcode = ''
@@ -34,6 +42,8 @@ module AlbumsHelper
     
     
   end
+
+  
 
   def color_map_for(name)
     downname = name.downcase

@@ -60,10 +60,10 @@ class AlbumsController < ApplicationController
     cloum_theme =22+cloumbegin
     decriptioncloum = 23+cloumbegin
 
-    colormapcloum = 32+cloumbegin
+    colormapcloum = 36+cloumbegin
     cloum_keywords = 31 +cloumbegin
     cloum_points = 30 + cloumbegin
-    sizemapcloum = 34+cloumbegin
+    sizemapcloum = 37+cloumbegin
     parentsku = @album.name.upcase
     brand = album_params[:brand]
     dnote = album_params[:dnote]
@@ -264,7 +264,11 @@ class AlbumsController < ApplicationController
     sheet1[0,cloum_color] = "color_name"
     sheet1[0,cloum_size] = "size_name"
     sheet1[0,cloum_item_type] = "item_type"
-    sheet1[0,cloum_keywords] = "generic_keywords"
+    sheet1[0,cloum_keywords] = "generic_keywords1"
+    sheet1[0,cloum_keywords+1] = "generic_keywords2"
+    sheet1[0,cloum_keywords+2] = "generic_keywords3"
+    sheet1[0,cloum_keywords+3] = "generic_keywords4"
+    sheet1[0,cloum_keywords+4] = "generic_keywords5"
     5.times do |f|
       sheet1[0,cloum_points-f] = "bullet_point"+(5-f).to_s
       
@@ -282,8 +286,18 @@ class AlbumsController < ApplicationController
     sheet1[titlecloum,cloum_brand] = brand
     sheet1[titlecloum,cloum_department] = "womens"
     sheet1[titlecloum,cloum_item_name] = fullname_for(brandname,fullname,"","")
-    sheet1[titlecloum,cloum_keywords] = album_params[:keywords].tr("\n",",")
+
     
+
+    #sheet1[titlecloum,cloum_keywords] = album_params[:keywords].tr("\n",",")
+
+    keywords_arry = album_params[:keywords].tr("\n",",").split(',')
+    keywords_total = code.length * csize.length * 5+5
+
+    if(keywords_arry.length<keywords_total)
+      sheet1[titlecloum,cloum_keywords] = album_params[:keywords].tr("\n",",")
+      
+    end
     code.each_with_index do |f,n|
       csize.each_with_index do |e,m|
         num = n*csize.length+m+titlecloum+1
@@ -304,12 +318,46 @@ class AlbumsController < ApplicationController
         sheet1[num,cloum_color]=colorname
         sheet1[num,cloum_size] = sizename
         sheet1[num,cloum_item_name] = fullname_for(brandname,fullname,colorname,sizename.tr("-"," ").tr("/","-"))
-        sheet1[num,cloum_keywords] = album_params[:keywords].tr("\n",",")
+        
+        if(keywords_arry.length<keywords_total)
+          sheet1[num,cloum_keywords] = album_params[:keywords].tr("\n",",")
+        
+        end
+        
         
         
         
       end
     end
+
+
+    #设置keywors
+
+     
+    if(keywords_arry.length > keywords_total)
+     key_array= keywords_for keywords_total,keywords_arry
+    
+     sheet1[titlecloum,cloum_keywords] = key_array[0].join(',')
+     sheet1[titlecloum,cloum_keywords+1] = key_array[1].join(',')
+     sheet1[titlecloum,cloum_keywords+2] = key_array[2].join(',')
+     sheet1[titlecloum,cloum_keywords+3] = key_array[3].join(',')
+     sheet1[titlecloum,cloum_keywords+4] = key_array[4].join(',')
+           
+      code.each_with_index do |f,n|
+        csize.each_with_index do |e,m|
+          num = n*csize.length+m+titlecloum
+          sn = (num-1)*5+5
+
+          sheet1[num+1,cloum_keywords] = key_array[sn].join(',')
+          sheet1[num+1,cloum_keywords+1] = key_array[sn+1].join(',')
+          sheet1[num+1,cloum_keywords+2] = key_array[sn+2].join(',')
+          sheet1[num+1,cloum_keywords+3] = key_array[sn+3].join(',')
+          sheet1[num+1,cloum_keywords+4] = key_array[sn+4].join(',')
+          
+        end
+      end
+    end
+    
 
     
     
