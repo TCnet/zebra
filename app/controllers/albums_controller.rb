@@ -296,7 +296,7 @@ class AlbumsController < ApplicationController
     keywords_total = code.length * csize.length * 5+5
 
     if(keywords_arry.length<keywords_total)
-      sheet1[titlecloum,cloum_keywords] =  keywords_arry
+      sheet1[titlecloum,cloum_keywords] =  keywords_arry.join(',')
       
     end
     code.each_with_index do |f,n|
@@ -321,7 +321,7 @@ class AlbumsController < ApplicationController
         sheet1[num,cloum_item_name] = fullname_for(brandname,fullname,colorname,sizename.tr("-"," ").tr("/","-"))
         
         if(keywords_arry.length<keywords_total)
-          sheet1[num,cloum_keywords] =  keywords_arry
+          sheet1[num,cloum_keywords] =  keywords_arry.join(',')
         
         end
         
