@@ -291,11 +291,12 @@ class AlbumsController < ApplicationController
 
     #sheet1[titlecloum,cloum_keywords] = album_params[:keywords].tr("\n",",")
 
-    keywords_arry = album_params[:keywords].tr("\n",",").split(',')
+    keywords_arry = album_params[:keywords].tr("\n",",").split(',').uniq
+    #album_params[:keywords] = 
     keywords_total = code.length * csize.length * 5+5
 
     if(keywords_arry.length<keywords_total)
-      sheet1[titlecloum,cloum_keywords] = album_params[:keywords].tr("\n",",")
+      sheet1[titlecloum,cloum_keywords] =  keywords_arry
       
     end
     code.each_with_index do |f,n|
@@ -320,7 +321,7 @@ class AlbumsController < ApplicationController
         sheet1[num,cloum_item_name] = fullname_for(brandname,fullname,colorname,sizename.tr("-"," ").tr("/","-"))
         
         if(keywords_arry.length<keywords_total)
-          sheet1[num,cloum_keywords] = album_params[:keywords].tr("\n",",")
+          sheet1[num,cloum_keywords] =  keywords_arry
         
         end
         
