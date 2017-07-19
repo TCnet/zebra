@@ -185,8 +185,24 @@ module AlbumsHelper
 
   
 
-  def to_in(cm)
-    (cm.to_f*0.3937008).round(2).to_s+"\""
+  def to_in(cm,is_in)
+    result = ''
+    str = cm.to_s.split('-')
+    str.each_with_index do |f,e|
+      if is_in
+        result +=f.to_s+"\""
+      else
+        strcm= f.to_s
+        #   result += (f.to_s.to_f*0.3937008).round(2).to_s+"\""
+        strcm=(strcm.to_f*0.3937008).round(2).to_s
+        result +=strcm+"\""
+      end
+      if e<str.length-1
+       result += "-"
+      end
+      
+    end
+    return result
   end
 
   def to_us_size_for(ussize,csize,str)
@@ -218,7 +234,7 @@ module AlbumsHelper
   
 
 
-  def description_size_for(desize,csize)
+  def description_size_for(desize,csize,is_in=false)
     #set size for description
     destr=""
     
@@ -237,7 +253,8 @@ module AlbumsHelper
           destr +=" "
           dearray.length.times do |c|
             if c > 0&& c-1==e
-              destr += to_in(dearray[c][num])
+              
+              destr += to_in(dearray[c][num],is_in)
               
             end
           end

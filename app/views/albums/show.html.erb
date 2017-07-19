@@ -27,9 +27,10 @@
      <%= f.text_field :fullname, class: 'form-control', placeholder: "fullname e.g;:Stripped T-shirts for women" %>
      <%= f.text_area :points, class: 'form-control',rows: 4,placeholder: "bullet_points use | or Enter to separate" %>
        <%= f.text_area :keywords, class: 'form-control',rows: 4,placeholder: "keywords" %>
-      <%= f.text_area :dname, class: 'form-control',rows: 4, placeholder: "introduction befor size e.g;:Stripped T-shirts" %>
-      <%= f.text_area :description, class: 'form-control',rows: 4,placeholder: "description size e.g;bust waist|70 78 can use enter instead | to separate " %>
+       <%= f.text_area :dname, class: 'form-control',rows: 4, placeholder: "introduction befor size e.g;:Stripped T-shirts" %>
+ <%= f.text_field "is_in",value:"cm", class: 'form-control', placeholder: "cm or in. The unit for you write size on the descrition" %>
 
+      <%= f.text_area :description, class: 'form-control',rows: 4,placeholder: "description size e.g;bust waist|70 78 can use enter instead | to separate " %>
 
        <%= f.text_area :dnote, class: 'form-control',rows: 4,placeholder: "description size e.g;bust waist|70 78" %>
 

@@ -26,6 +26,8 @@ class AlbumsController < ApplicationController
 
   def exportexcel
     @album = Album.find(params[:id])
+
+    is_in = params[:album][:is_in].downcase=="in"?true:false
     
     
     book = Spreadsheet::Workbook.new
@@ -138,7 +140,7 @@ class AlbumsController < ApplicationController
     
   
     
-    dest += description_size_for album_params[:description],ussize
+    dest += description_size_for album_params[:description],ussize,is_in
     if !dnote.empty?
       dest+="\n<br>"
       dest+=dnote
@@ -394,6 +396,7 @@ class AlbumsController < ApplicationController
 
   def show
     
+   # @in_select={"Yes"=>true,"No"=>false}
     @album = Album.find(params[:id])
    # @user_brand = current_user.brand
    # @user_note = current_user.note
