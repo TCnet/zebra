@@ -4,7 +4,8 @@ module AlbumsHelper
   def category_for(all)
     result= []
     all.each do |f|
-      result << f.name.upcase.split('0').first
+      # result << f.name.upcase.split('0').first
+      result << f.name.upcase.scan(/^[A-Z]*/).join('')
     end
     result = result.uniq
   end
