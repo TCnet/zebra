@@ -1,4 +1,5 @@
 class Album < ApplicationRecord
+  include Searchable
   belongs_to :user
   has_many :photos, dependent: :destroy
   default_scope -> {order(created_at: :desc)}

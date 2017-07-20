@@ -1,7 +1,14 @@
 # coding: utf-8
 module AlbumsHelper
 
- 
+  def category_for(all)
+    result= []
+    all.each do |f|
+      result << f.name.upcase.split('0').first
+    end
+    result = result.uniq
+  end
+
 
   def keywords_for(num,keywords)
     

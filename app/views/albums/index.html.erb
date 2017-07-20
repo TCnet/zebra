@@ -5,10 +5,21 @@
    <%= render 'shared/album_menu' %>
   </aside>
   <div class="col-md-9">
-    <h1>My albums</h1>
+
+    <div class="row albums_search">
+      <ul>
+        <% @category.each do |f|%>
+        <li>
+
+      <%= link_to f,albums_path(:q => f) %>
+</li>
+      <% end %>
+      </ul>
+      </div>
 
 
-   <div class="row albums">
+    <div class="row albums">
+
      <%= render @albums %>
      </div>
   <%= will_paginate %>
