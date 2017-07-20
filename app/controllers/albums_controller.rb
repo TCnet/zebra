@@ -401,6 +401,7 @@ class AlbumsController < ApplicationController
   end
 
   def show
+    @category = category_for current_user.albums
     
    # @in_select={"Yes"=>true,"No"=>false}
     @album = Album.find(params[:id])
@@ -467,6 +468,7 @@ class AlbumsController < ApplicationController
   end
   
   private
+    
     def album_params
       params.require(:album).permit(:name, :summary,:csize,:ussize,:brand,:fullname,:dname,:description,:dnote,:keywords,:points)
     end

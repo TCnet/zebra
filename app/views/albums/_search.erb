@@ -1,0 +1,10 @@
+<div class="row albums_search">
+      <ul>
+        <% @category.each do |f|%>
+        <li>
+
+      <%= link_to f,albums_path(:q => f) %>
+</li>
+      <% end %>
+      </ul>
+      </div>

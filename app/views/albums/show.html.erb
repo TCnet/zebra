@@ -5,7 +5,7 @@
    <%= render 'shared/album_menu' %>
   </aside>
   <div class="col-md-9">
-     <h1>Show albums</h1>
+    <%= render 'search' %>
     <section class="album_info">
       <span id="album_img"><%= image_tag @album.coverimg,width:"120",height: "120"%></span>
       <span><%=@album.name%></span>
