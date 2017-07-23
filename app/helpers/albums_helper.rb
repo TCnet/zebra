@@ -10,6 +10,8 @@ module AlbumsHelper
     result = result.uniq
   end
 
+ 
+
 
   def keywords_for(num,keywords)
     
@@ -172,8 +174,12 @@ module AlbumsHelper
   #size for the us
   def size_for(size,n,separate, usszie)
     ob = usszie.split(' ')
-    if !usszie.empty? && ob.length > n     
-      return "US"+separate+ob[n]     
+    if !usszie.empty? && ob.length > n
+      if ob[n].match /^[A-Za-z]*/
+        return ob[n].upcase
+      else
+        return "US"+separate+ob[n]
+      end
     else
       return size.upcase
     end
