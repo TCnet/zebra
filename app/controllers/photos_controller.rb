@@ -36,9 +36,15 @@ class PhotosController < ApplicationController
   def destroy
     id = params[:id]
     id = (params[:photo_ids] || []) if(id == "destroy_multiple")
+    #if(id == "")
     #ids = params[:photo_ids] || params[:id]
-    @photo = Photo.find(id.first)
-    @album = @photo.album
+    @photo = Photo.find(id)
+    #@album = Album.find(@photo.first.album_id)
+    if params[:id]=="destroy_multiple"
+      @album = @photo.first.album
+    else
+      @album = @photo.album
+    end
 
     @album.coverimg = "nopic.jpg"
     @album.save

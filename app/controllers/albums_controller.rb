@@ -35,7 +35,7 @@ class AlbumsController < ApplicationController
 
     is_in = params[:album][:is_in].downcase=="in"?true:false
     
-    
+    keywords_type = 2
     book = Spreadsheet::Workbook.new
     sheet1 = book.create_worksheet
     sheet1.name = 'Template'
@@ -299,14 +299,25 @@ class AlbumsController < ApplicationController
 
     #sheet1[titlecloum,cloum_keywords] = album_params[:keywords].tr("\n",",")
 
-    keywords_arry = album_params[:keywords].tr("\n",",").split(',').uniq
+    keywords_arry = album_params[:keywords].tr("\n",",").split(',').uniq.delete_if{|x| !x.to_s.present?}
+    
+
+    keywords_uniq = album_params[:keywords].tr("\n"," ").split(' ').uniq.join(' ')[0,1000]
     #album_params[:keywords] = 
     keywords_total = code.length * csize.length * 5+5
 
-    if(keywords_arry.length<keywords_total)
-      sheet1[titlecloum,cloum_keywords] =  keywords_arry.join(',')
-      
+    if keywords_type == 1
+      if(keywords_arry.length<keywords_total)
+        sheet1[titlecloum,cloum_keywords] =  keywords_arry.join(',')
+        
+      end
+    else
+      #for keywords 2
+      sheet1[titlecloum,cloum_keywords] = keywords_uniq
     end
+
+    
+    
     code.each_with_index do |f,n|
       csize.each_with_index do |e,m|
         num = n*csize.length+m+titlecloum+1
@@ -327,11 +338,18 @@ class AlbumsController < ApplicationController
         sheet1[num,cloum_color]=colorname
         sheet1[num,cloum_size] = sizename
         sheet1[num,cloum_item_name] = fullname_for(brandname,fullname,colorname,sizename.tr("-"," ").tr("/","-"))
-        
-        if(keywords_arry.length<keywords_total)
-          sheet1[num,cloum_keywords] =  keywords_arry.join(',')
-        
+
+        if keywords_type == 1
+          if(keywords_arry.length<keywords_total)
+            sheet1[num,cloum_keywords] =  keywords_arry.join(',')
+            
+          end
+        else
+          #for keywords 2
+          sheet1[num,cloum_keywords] =  keywords_uniq
         end
+        
+        
         
         
         
@@ -342,31 +360,58 @@ class AlbumsController < ApplicationController
 
     #设置keywors
 
-     
-    if(keywords_arry.length > keywords_total)
-     key_array= keywords_for keywords_total,keywords_arry
-    
-     sheet1[titlecloum,cloum_keywords] = key_array[0].join(',')
-     sheet1[titlecloum,cloum_keywords+1] = key_array[1].join(',')
-     sheet1[titlecloum,cloum_keywords+2] = key_array[2].join(',')
-     sheet1[titlecloum,cloum_keywords+3] = key_array[3].join(',')
-     sheet1[titlecloum,cloum_keywords+4] = key_array[4].join(',')
-           
+    if keywords_type==1
+      
+      if(keywords_arry.length > keywords_total)
+        key_array= keywords_for keywords_total,keywords_arry
+        
+        sheet1[titlecloum,cloum_keywords] = key_array[0].join(',')
+        sheet1[titlecloum,cloum_keywords+1] = key_array[1].join(',')
+        sheet1[titlecloum,cloum_keywords+2] = key_array[2].join(',')
+        sheet1[titlecloum,cloum_keywords+3] = key_array[3].join(',')
+        sheet1[titlecloum,cloum_keywords+4] = key_array[4].join(',')
+        
+        code.each_with_index do |f,n|
+          csize.each_with_index do |e,m|
+            num = n*csize.length+m+titlecloum
+            sn = (num-1)*5+5
+
+            sheet1[num+1,cloum_keywords] = key_array[sn].join(',')
+            sheet1[num+1,cloum_keywords+1] = key_array[sn+1].join(',')
+            sheet1[num+1,cloum_keywords+2] = key_array[sn+2].join(',')
+            sheet1[num+1,cloum_keywords+3] = key_array[sn+3].join(',')
+            sheet1[num+1,cloum_keywords+4] = key_array[sn+4].join(',')
+            
+          end
+        end
+      end
+      
+    else
+      #keywords 2
+      key_array = keywords_for 4,keywords_arry
+
+      sheet1[titlecloum,cloum_keywords+1] = key_array[0].join(',')[0,1000]
+      sheet1[titlecloum,cloum_keywords+2] = key_array[1].join(',')[0,1000]
+      sheet1[titlecloum,cloum_keywords+3] = key_array[2].join(',')[0,1000]
+      sheet1[titlecloum,cloum_keywords+4] = key_array[3].join(',')[0,1000]
+
       code.each_with_index do |f,n|
         csize.each_with_index do |e,m|
           num = n*csize.length+m+titlecloum
-          sn = (num-1)*5+5
-
-          sheet1[num+1,cloum_keywords] = key_array[sn].join(',')
-          sheet1[num+1,cloum_keywords+1] = key_array[sn+1].join(',')
-          sheet1[num+1,cloum_keywords+2] = key_array[sn+2].join(',')
-          sheet1[num+1,cloum_keywords+3] = key_array[sn+3].join(',')
-          sheet1[num+1,cloum_keywords+4] = key_array[sn+4].join(',')
+          
+          #sheet1[num+1,cloum_keywords] = key_array[0].join(',')[0,1000]
+          sheet1[num+1,cloum_keywords+1] = key_array[0].join(',')[0,1000]
+          sheet1[num+1,cloum_keywords+2] = key_array[1].join(',')[0,1000]
+          sheet1[num+1,cloum_keywords+3] = key_array[2].join(',')[0,1000]
+          sheet1[num+1,cloum_keywords+4] = key_array[3].join(',')[0,1000]
           
         end
       end
+      
     end
     
+
+   
 
     
     
