@@ -21,8 +21,11 @@ class ClearsController < ApplicationController
       
     end
 
-    
-    flash.now[:success]=str.length.to_s+"|"+a.length.to_s+"|"+a.join(' ')
+    keywords = params[:clear][:keywords]
+    keywords_uniq = params[:clear][:keywords].downcase.tr("\n"," ").split(' ').uniq.join(' ')
+
+    flash.now[:success] = keywords_uniq 
+    #flash.now[:success]=str.length.to_s+"|"+a.length.to_s+"|"+a.join(' ')
     flash.now[:danger]=num
     flash.now[:info]=acm.join(' ')
     render 'new'

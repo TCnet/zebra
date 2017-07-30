@@ -19,6 +19,16 @@ module AlbumsHelper
     
   end
 
+  def keywords_for3(num=250,keywords)
+    key_length = keywords.tr(" ","").length
+    m = key_length / num
+    n =  key_length % num
+    key_array =  keywords.split(' ')
+    s= key_array.in_groups(m+1, false) {|group| p group}
+    
+    
+  end
+
   def code_for(photos,stylecode)
     code=[]
     strcode = ''
