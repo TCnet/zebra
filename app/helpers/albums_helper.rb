@@ -184,9 +184,10 @@ module AlbumsHelper
   #size for the us
   def size_for(size,n,separate, usszie)
     ob = usszie.split(' ')
-    if !usszie.empty? && ob.length > n
-      if ob[n].match /^[A-Za-z]*/
+    if !usszie.empty? 
+      if( ob[n].upcase =~ /[A-Z]$/ )
         return ob[n].upcase
+       
       else
         return "US"+separate+ob[n]
       end
