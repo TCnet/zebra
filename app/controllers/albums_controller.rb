@@ -190,13 +190,9 @@ class AlbumsController < ApplicationController
     #设置sku
     
     skunum= csize.length
+    sheet1.row(1).height = rowheight
+    sheet1[1,skucloum] = parentsku
     code.each_with_index do |n,index|
-     
-      if index==1
-        sheet1.row(1).height = rowheight
-        sheet1[1,skucloum] = parentsku
-        
-      end
       csize.each_with_index do |m,j|
         rownum = index*skunum+j+2
         sheet1.row(rownum).height = rowheight
