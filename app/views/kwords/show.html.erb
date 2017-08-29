@@ -1,0 +1,25 @@
+<% provide(:title, "Show kwords") %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/kword_menu' %>
+  </aside>
+  <div class="col-md-9">
+    <%= render 'search' %>
+    <section class="kword_info">
+
+
+      <h5><%=@kword.name%></h5>
+      <textarea class="form-control" rows="4"
+                name="kinstr" id="kinstr"><%=@kword.instr %></textarea>
+       <textarea class="form-control" rows="4"
+                 name="koutstr" id="koutstr"><%=@kword.outstr %></textarea>
+        <textarea class="form-control" rows="4"
+                  name="lefwords" id="lefwords"><%=@kword.lefwords %></textarea>
+
+
+
+<span><%= link_to "edit",edit_kword_path(@kword) %> | <%= link_to "delete", @kword, method: :delete, data: { confirm: "You sure?"} %></span>
+</section>
+
+<div>

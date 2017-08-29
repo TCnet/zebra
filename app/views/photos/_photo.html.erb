@@ -13,7 +13,7 @@
   </span>
    </td>
   <td>
-    <button id="bt_<%=photo.id%>" onClick="CopyURL('photo_<%=photo.id%>')" >Copy</button>
+    <button id="bt_<%=photo.id%>" onClick="CopyURL('photo_<%=photo.id%>');return false;" >Copy</button>
   <span  > <%= link_to "delete", photo, method: :delete, data: { confirm: "You sure?"} %></span>
     </td>
 

@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   resources :products
 
   resources :upcs
+  resources :kwords
   
   resources :albums do
     member do

@@ -38,21 +38,28 @@ class PhotosController < ApplicationController
     id = (params[:photo_ids] || []) if(id == "destroy_multiple")
     #if(id == "")
     #ids = params[:photo_ids] || params[:id]
-    @photo = Photo.find(id)
-    #@album = Album.find(@photo.first.album_id)
-    if params[:id]=="destroy_multiple"
-      @album = @photo.first.album
+    if id.nil?||id.empty?
+      #flash[:fail] = "id empty"
     else
-      @album = @photo.album
-    end
+      @photo = Photo.find(id)
+      #@album = Album.find(@photo.first.album_id)
 
-    @album.coverimg = "nopic.jpg"
-    @album.save
-    
-    
-    Photo.destroy id if id
-    flash[:success] = "Photo deleted"
-    redirect_to request.referrer || albums_path
+      
+      if params[:id]=="destroy_multiple"
+        @album = @photo.first.album
+      else
+        @album = @photo.album
+      end
+
+      @album.coverimg = "nopic.jpg"
+      @album.save
+      
+      
+      Photo.destroy id if id
+      flash[:success] = "Photo deleted"
+      redirect_to request.referrer || albums_path
+         
+    end
   end
   
   

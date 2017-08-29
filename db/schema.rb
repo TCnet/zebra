@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170709090106) do
+ActiveRecord::Schema.define(version: 20170821040406) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "name"
@@ -32,15 +32,15 @@ ActiveRecord::Schema.define(version: 20170709090106) do
     t.index ["user_id"], name: "index_albums_on_user_id"
   end
 
-  create_table "inventories", force: :cascade do |t|
+  create_table "kwords", force: :cascade do |t|
     t.string   "name"
-    t.string   "sku"
-    t.string   "summary"
-    t.integer  "pid"
+    t.text     "instr"
+    t.text     "outstr"
+    t.string   "lefwords"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_inventories_on_user_id"
+    t.index ["user_id"], name: "index_kwords_on_user_id"
   end
 
   create_table "microposts", force: :cascade do |t|
@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(version: 20170709090106) do
     t.datetime "updated_at", null: false
     t.string   "picture"
     t.string   "qquuid"
-    t.string   "excelfile"
     t.index ["album_id"], name: "index_photos_on_album_id"
   end
 
@@ -85,18 +84,6 @@ ActiveRecord::Schema.define(version: 20170709090106) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
-  create_table "stocks", force: :cascade do |t|
-    t.string   "sku"
-    t.integer  "num"
-    t.string   "code"
-    t.string   "size"
-    t.string   "ussize"
-    t.integer  "inventory_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["inventory_id"], name: "index_stocks_on_inventory_id"
-  end
-
   create_table "upcs", force: :cascade do |t|
     t.string   "name"
     t.string   "bool"
@@ -104,7 +91,6 @@ ActiveRecord::Schema.define(version: 20170709090106) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "excelfile"
     t.index ["user_id"], name: "index_upcs_on_user_id"
   end
 
