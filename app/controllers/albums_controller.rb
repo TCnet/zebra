@@ -35,7 +35,7 @@ class AlbumsController < ApplicationController
 
     is_in = params[:album][:is_in].downcase=="in"?true:false
     
-    keywords_type = 2
+    keywords_type = 1
     book = Spreadsheet::Workbook.new
     sheet1 = book.create_worksheet
     sheet1.name = 'Template'
