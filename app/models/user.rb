@@ -5,6 +5,8 @@ class User < ApplicationRecord
   has_many :albums, dependent: :destroy
   has_many :upcs, dependent: :destroy
   has_many :kwords,dependent: :destroy
+  has_many :xstockplans, dependent: :destroy
+ 
   #has_many :inventories, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship",
            foreign_key: "follower_id",

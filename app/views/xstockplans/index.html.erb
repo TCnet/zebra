@@ -1,0 +1,31 @@
+<% provide(:title, 'My Stock Plans') %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/xstock_menu' %>
+  </aside>
+  <div class="col-md-9">
+ <div class="row ">
+      <table class="table">
+
+
+      <% @xstockplans.each do |ob| %>
+      <tr>
+        <td>
+          <%= link_to ob.name, ob %>
+
+        </td>
+        <td><p>
+<%= link_to "edit",edit_xstockplan_path(ob) %> | <%= link_to "delete", ob, method: :delete, data: { confirm: "You sure?"} %>
+</p></td>
+        </tr>
+
+      <% end %>
+
+  </table>
+  </div>
+
+ <%= will_paginate %>
+  </div>
+
+</div>

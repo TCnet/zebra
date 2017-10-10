@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sku: MyString
+  fnsku: MyString
+  homenum: 1
+  fbanum: 1
+  monthsold: 1
+  parentsku: MyString
+  xstockplan: one
+
+two:
+  sku: MyString
+  fnsku: MyString
+  homenum: 1
+  fbanum: 1
+  monthsold: 1
+  parentsku: MyString
+  xstockplan: two

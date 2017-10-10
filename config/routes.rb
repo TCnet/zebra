@@ -44,6 +44,15 @@ Rails.application.routes.draw do
 
   resources :upcs
   resources :kwords
+  resources :xstockplans
+  resources :xstocks
+
+  resources :xstockplans do
+    member do
+      match :importexcel, to: :importexcel, via: [:post, :patch]
+      match :exportexcel, to: :exportexcel, via: [:post, :patch]
+    end
+  end
   
   resources :albums do
     member do

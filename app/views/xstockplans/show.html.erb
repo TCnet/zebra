@@ -1,0 +1,61 @@
+<% provide(:title, "Show stock plan") %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/xstock_menu' %>
+  </aside>
+  <div class="col-md-9">
+
+    <section class="album_info">
+      <span><%=@xstockplan.name%></span>
+
+
+<span><%= link_to "edit",edit_xstockplan_path(@xstockplan) %> | <%= link_to "delete", @xstockplan, method: :delete, data: { confirm: "You sure?"} %></span>
+    </section>
+    <div class=" ">
+      <table class="table">
+        <tr>
+          <th>SKU</th>
+
+          <th>HomeNum|FBA</th>
+          <th>30days Sold</th>
+          <th>ParentSKU</th>
+          <th>PlanNum</th>
+          <th>Should Buy</th>
+          <th>Options</th>
+          </tr>
+      <% @xstocks.each do |ob| %>
+      <tr>
+        <td> <%=  ob.sku %>  </td>
+
+        <td> <%=  ob.homenum %> | <%=  ob.fbanum %>  </td>
+        <td> <%=  ob.monthsold %>  </td>
+        <td> <%=  ob.parentsku %>  </td>
+          <td> <%=  for_plan_num ob.monthsold,2,ob.plannum %>  </td>
+         <td> <%=  for_stock_num(ob.homenum,ob.fbanum,ob.monthsold,2,ob.plannum) %>  </td>
+
+        <td><%= link_to "edit",edit_xstockplan_path(ob) %> |
+          <%= link_to "delete", ob, method: :delete, data: { confirm: "You sure?"} %>
+        </td>
+        </tr>
+      <% end %>
+
+  </table>
+  </div>
+
+
+    <div class="row">
+         <%= form_for(@xstockplan,url: { action: "importexcel" }, html: { multipart: true }) do |f| %>
+      <div class="col-md-6">
+        <%= f.file_field "excelfile", class: 'form-control' %>
+        </div>
+           <div class="col-md-3">
+            <%= f.submit "ImportExcel",:class => "btn btn-large btn-primary" %>
+   </div>
+           <% end %>
+              </div>
+  <div class="col-md-3">
+       <%=form_for @xstockplan, url: { action: "exportexcel" }  do |f| %>
+     <%= f.submit "ExportExcel",:class => "btn btn-large btn-primary" %>
+     <% end %>
+      </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821040406) do
+ActiveRecord::Schema.define(version: 20171010045243) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "name"
@@ -111,6 +111,29 @@ ActiveRecord::Schema.define(version: 20170821040406) do
     t.text     "note"
     t.string   "imgrule"
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "xstockplans", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_xstockplans_on_user_id"
+  end
+
+  create_table "xstocks", force: :cascade do |t|
+    t.string   "sku"
+    t.string   "fnsku"
+    t.integer  "homenum"
+    t.integer  "fbanum"
+    t.integer  "monthsold"
+    t.string   "parentsku"
+    t.integer  "xstockplan_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "name"
+    t.integer  "plannum"
+    t.index ["xstockplan_id"], name: "index_xstocks_on_xstockplan_id"
   end
 
 end
