@@ -54,10 +54,10 @@ class XstockplansController < ApplicationController
       p.sku = row[0]
       p.fnsku=row[1]
       p.parentsku = row[2]
-      p.homenum = row[3]
-      p.fbanum = row[4]
-      p.monthsold = row[5]
-      p.plannum = row[6]
+      p.homenum = row[3].to_i
+      p.fbanum = row[4].to_i
+      p.monthsold = row[5].to_i
+      p.plannum = row[6].to_i
       p.name =row[7]
      
       
