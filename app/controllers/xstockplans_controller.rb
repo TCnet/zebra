@@ -95,6 +95,7 @@ class XstockplansController < ApplicationController
     @xstocks = @xstockplan.xstocks
 
     @xstocks.each_with_index do |ob,index|
+      stock_num = for_stock_num(ob.homenum,ob.fbanum,ob.monthsold,2,ob.plannum)
       sheet1[index+1,0]= ob.sku
       sheet1[index+1,1]= ob.fnsku
       sheet1[index+1,2]= ob.parentsku
@@ -103,7 +104,7 @@ class XstockplansController < ApplicationController
       sheet1[index+1,5]= ob.monthsold
       sheet1[index+1,6]= ob.plannum
       sheet1[index+1,7]= ob.name
-      sheet1[index+1,8]= for_stock_num(ob.homenum,ob.fbanum,ob.monthsold,2,ob.plannum)
+      sheet1[index+1,8]=stock_num
     end
                  
 
