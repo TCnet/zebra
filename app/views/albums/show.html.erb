@@ -25,6 +25,8 @@
      <%= f.text_field :ussize, class: 'form-control', placeholder: "usszie e.g;:8 10 12 14" %>
      <%= f.text_field :brand, class: 'form-control', placeholder: "brand e.g;:Xudom" %>
      <%= f.text_field :fullname, class: 'form-control', placeholder: "fullname e.g;:Stripped T-shirts for women" %>
+     <%=  f.text_field  :price, class: 'form-control',placeholder: "prices use | or Enter to separate,standard|list|sale price" %>
+      <%= f.text_area :stock, class: 'form-control',rows: 6,placeholder: "stock use | or Enter to separate please sort alphabetically of pic name" %>
      <%= f.text_area :points, class: 'form-control',rows: 4,placeholder: "bullet_points use | or Enter to separate" %>
        <%= f.text_area :keywords, class: 'form-control',rows: 4,placeholder: "keywords" %>
        <%= f.text_area :dname, class: 'form-control',rows: 4, placeholder: "introduction befor size e.g;:Stripped T-shirts" %>

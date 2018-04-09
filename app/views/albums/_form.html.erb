@@ -12,6 +12,10 @@
     <%= f.text_field :brand, class: 'form-control' ,placeholder:"Your Brand name"%>
     <%= f.label :fullname %>
     <%= f.text_field :fullname, class: 'form-control' ,placeholder:"Fullname"%>
+     <%= f.label :price %>
+     <%= f.text_area :price, class: 'form-control',placeholder: "prices use | or Enter to separate,standard|list|sale price" %>
+      <%= f.label :stock %>
+     <%= f.text_area :stock, class: 'form-control',rows: 6,placeholder: "stock use | or Enter to separate please sort alphabetically of pic name" %>
      <%= f.label :points %>
      <%= f.text_area :points, class: 'form-control',rows: 4,placeholder: "bullet_points use | or Enter to separate" %>
       <%= f.label :keywords %>

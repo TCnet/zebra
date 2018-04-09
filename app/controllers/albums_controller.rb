@@ -51,27 +51,31 @@ class AlbumsController < ApplicationController
     cloum_item_name=4+cloumbegin
     
     cloum_color= 5+cloumbegin
-    cloum_department =6+cloumbegin
+    colormapcloum = 6+cloumbegin
+    cloum_department =9+cloumbegin
     cloum_size = 7+cloumbegin
-    cloum_s_price =8+cloumbegin
-    cloum_quantity = 9+cloumbegin
-    imgcloum= 10+cloumbegin
-
-    
+    sizemapcloum = 8+cloumbegin
+    cloum_s_price =8+2+cloumbegin
+    cloum_quantity = 9+2+cloumbegin
+    imgcloum= 10+2+cloumbegin
+        
     rowheight = 18
     columnwidth = 12
     
 
-    cloum_parent_child = 19+cloumbegin
-    cloum_parent_sku = 20+cloumbegin
-    cloum_relationship_type=21+cloumbegin
-    cloum_theme =22+cloumbegin
-    decriptioncloum = 23+cloumbegin
+    cloum_parent_child = 19+2+cloumbegin
+    cloum_parent_sku = 20+2+cloumbegin
+    cloum_relationship_type=21+2+cloumbegin
+    cloum_theme =22+2+cloumbegin
+    decriptioncloum = 23+2+cloumbegin
 
-    colormapcloum = 36+cloumbegin
-    cloum_keywords = 31 +cloumbegin
-    cloum_points = 30 + cloumbegin
-    sizemapcloum = 37+cloumbegin
+   
+    cloum_keywords = 31+2 +cloumbegin
+    cloum_points = 30+2 + cloumbegin
+
+    cloum_list_price = 38 + cloumbegin
+    cloum_sale_price = 39 + cloumbegin
+  
     parentsku = @album.name.upcase
     brand = album_params[:brand]
     dnote = album_params[:dnote]
@@ -264,6 +268,8 @@ class AlbumsController < ApplicationController
     sheet1[0,cloum_theme] = "variation_theme"
     sheet1[0,cloum_quantity]= "quantity"
     sheet1[0,cloum_s_price] = "standard_price"
+    sheet1[0,cloum_list_price]="list_price"
+    sheet1[0,cloum_sale_price]="sale_price"
     sheet1[0,cloum_item_name]="item_name"
     sheet1[0,cloum_color] = "color_name"
     sheet1[0,cloum_size] = "size_name"
@@ -281,6 +287,9 @@ class AlbumsController < ApplicationController
     points.each_with_index do |f,n|
       sheet1[titlecloum,cloum_points-4+n] = f 
     end
+
+
+    
     
 
     sheet1[titlecloum,cloum_parent_child] = "Parent"
@@ -296,6 +305,11 @@ class AlbumsController < ApplicationController
     #sheet1[titlecloum,cloum_keywords] = album_params[:keywords].tr("\n",",")
 
     keywords_arry = album_params[:keywords].tr("\n",",").split(',').uniq.delete_if{|x| !x.to_s.present?}
+    
+    #price set
+    price_arry = album_params[:price].tr(" ",",").tr("|",",").split(',')
+
+    stock_arry = stock_two_arry(code.length,csize.length,album_params[:stock])
     
 
     keywords_uniq = album_params[:keywords].tr("\n"," ").split(' ').uniq.join(' ')[0,1000]
@@ -330,7 +344,7 @@ class AlbumsController < ApplicationController
         sheet1[num,cloum_parent_child]="Child"
         sheet1[num,cloum_relationship_type]="Variation"
         sheet1[num,cloum_theme]="sizecolor"
-        sheet1[num,cloum_quantity]= 50
+        sheet1[num,cloum_quantity]= stock_arry[n][m]
         sheet1[num,cloum_color]=colorname
         sheet1[num,cloum_size] = sizename
         sheet1[num,cloum_item_name] = fullname_for(brandname,fullname,colorname,sizename.tr("-"," ").tr("/","-"))
@@ -344,7 +358,27 @@ class AlbumsController < ApplicationController
           #for keywords 2
           sheet1[num,cloum_keywords] =  keywords_uniq
         end
+
+
         
+        #set price
+        if(price_arry.length>0)
+          sheet1[num,cloum_s_price] = price_arry[0].to_f.round(2)
+          
+          if(price_arry.length==1)
+            sheet1[num,cloum_list_price] = price_arry[0].to_f.round(2)
+            sheet1[num,cloum_sale_price] = price_arry[0].to_f.round(2)
+          elsif(price_arry.length==2)          
+            sheet1[num,cloum_list_price] = price_arry[1].to_f.round(2)
+          elsif(price_arry.length>2)         
+            sheet1[num,cloum_list_price] = price_arry[1].to_f.round(2)
+            sheet1[num,cloum_sale_price] = price_arry[2].to_f.round(2)
+          end
+               
+        end
+        
+        
+    
         
         
         
@@ -511,7 +545,7 @@ class AlbumsController < ApplicationController
   private
     
     def album_params
-      params.require(:album).permit(:name, :summary,:csize,:ussize,:brand,:fullname,:dname,:description,:dnote,:keywords,:points)
+      params.require(:album).permit(:name, :summary,:csize,:ussize,:brand,:fullname,:dname,:description,:dnote,:keywords,:points,:price,:stock)
     end
 
     def correct_album

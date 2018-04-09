@@ -1,4 +1,5 @@
 module XstockplansHelper
+  
   def for_plan_num(monthsold,keypa,plannum)
     if plannum>0
       plannum

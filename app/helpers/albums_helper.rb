@@ -259,8 +259,48 @@ module AlbumsHelper
     
   end
 
-
+  def stock_two_arry(codelength,csizelength,stock)
+    
+    ob = stock.tr("\n","|").split('|')
+    if(ob.length>1)
+      
+    
+      result = Array.new
+      ob.each_with_index do |f,n|
   
+        mob= f.split(' ')
+        if(mob.length>1)        
+          result[n]= f.split(' ').map{|item| item.to_i}
+         
+        else
+          result[n]=Array.new(csizelength,f.to_in)
+        end
+      
+      end
+      return result
+      
+    elsif(stock.empty?)
+      return Array.new(codelength, Array.new(csizelength, 0))
+    elsif(stock.split(' ').length>1)
+      s= stock.split(' ')
+      if(s.length<csizelength)
+        csizelength-s.length.times do |f|
+         s << 0
+        end
+      end
+      s= s.map{|item| item.to_i}
+      return Array.new(codelength,s)
+    else
+      
+      return Array.new(codelength, Array.new(csizelength, stock.to_i))
+    end
+    
+      
+    
+    
+  end
+
+ 
 
 
   def description_size_for(desize,csize,is_in=false)
