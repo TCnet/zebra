@@ -304,7 +304,7 @@ class AlbumsController < ApplicationController
 
     #sheet1[titlecloum,cloum_keywords] = album_params[:keywords].tr("\n",",")
 
-    keywords_arry = album_params[:keywords].tr("\n",",").split(',').uniq.delete_if{|x| !x.to_s.present?}
+    keywords_arry = album_params[:keywords].tr("\n\r",",").split(',').map{|x| x.strip }.uniq.delete_if{|x| !x.to_s.present?}
     
     #price set
     price_arry = album_params[:price].tr(" ",",").tr("|",",").split(',')
@@ -312,7 +312,7 @@ class AlbumsController < ApplicationController
     stock_arry = stock_two_arry(code.length,csize.length,album_params[:stock])
     
 
-    keywords_uniq = album_params[:keywords].tr("\n"," ").split(' ').uniq.join(' ')[0,1000]
+    keywords_uniq = album_params[:keywords].tr("\n\r"," ").split(' ').uniq.join(' ')[0,1000]
     #album_params[:keywords] = 
     keywords_total = code.length * csize.length * 5+5
 
