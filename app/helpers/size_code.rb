@@ -45,17 +45,17 @@ module SizeCode
     if !usszie.empty? 
       if( ob[n].upcase =~ /[A-Z]$/ )
        
-        result = !asize_arry[n].nil?? ob[n].upcase+asize_arry[n] : ob[n].upcase
+        result = !asize_arry[n].nil?? ob[n].upcase+" "+asize_arry[n] : ob[n].upcase
         return result
         
       else
-        result = !asize_arry[n].nil?? "US"+separate+ob[n]+asize_arry[n] : "US"+separate+ob[n]
+        result = !asize_arry[n].nil?? "US"+separate+ob[n]+" "+asize_arry[n] : "US"+separate+ob[n]
         return result
       end
     elsif(size.downcase=="tm")
       return "One Size"
     else
-      return  !asize_arry[n].nil?? size.upcase+asize_arry[n] : size.upcase
+      return  !asize_arry[n].nil?? size.upcase+" "+asize_arry[n] : size.upcase
     end
   end
   #end size_for

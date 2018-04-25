@@ -331,7 +331,31 @@ class AlbumsController < ApplicationController
         end
         if(t_ob=="item_name")
           sheet1[titlecloum,t_num] = fullname_for(brandname,fullname,"","")
-          sheet1[num,t_num]=  fullname_for(brandname,fullname,colorname,sizename.tr("-"," ").tr("/","-"))
+          sheet1[num,t_num]=  fullname_for(brandname,fullname,colorname,sizename.tr("-","").tr("/","").split(' ').join(' '))
+        end
+        if(t_ob=="fulfillment_latency")
+          sheet1[titlecloum,t_num] = 5
+          sheet1[num,t_num] = 5
+        end
+        if(t_ob=="sale_from_date")
+          sheet1[titlecloum,t_num] =  -2.days.from_now.strftime('%Y-%m-%d')
+          sheet1[num,t_num] = -2.days.from_now.strftime('%Y-%m-%d')
+        end
+        if(t_ob=="sale_end_date")
+          sheet1[titlecloum,t_num] =  770.days.from_now.strftime('%Y-%m-%d')
+          sheet1[num,t_num] = 770.days.from_now.strftime('%Y-%m-%d')
+        end
+        if(t_ob=="import_designation")
+          sheet1[titlecloum,t_num] =  "Imported"
+          sheet1[num,t_num] = "Imported"
+        end
+        if(t_ob=="country_of_origin")
+          sheet1[titlecloum,t_num] =  "China"
+          sheet1[num,t_num] = "China"
+        end
+        if(t_ob=="condition_type")
+          sheet1[titlecloum,t_num] =  "New"
+          sheet1[num,t_num] = "New"
         end
         
         
