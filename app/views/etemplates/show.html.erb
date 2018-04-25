@@ -1,0 +1,22 @@
+<% provide(:title, "Show Templates") %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/etemplate_menu' %>
+  </aside>
+  <div class="col-md-9">
+
+    <section class="etemplate_info">
+
+
+      <h5><%=@etemplate.name%></h5>
+      <textarea class="form-control" rows="6"
+                name="etitle" id="etitle"><%=@etemplate.title %></textarea>
+
+
+
+
+<span><%= link_to "edit",edit_etemplate_path(@etemplate) %> | <%= link_to "delete", @etemplate, method: :delete, data: { confirm: "You sure?"} %></span>
+</section>
+
+<div>

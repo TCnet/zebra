@@ -1,7 +1,7 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
 
-    <%= link_to "bbs nbtcnet", root_path, id: "logo" %>
+    <%= link_to "ZEBRA ERP", root_path, id: "logo" %>
     <div class="navbar-header">
        <button class="btn btn-dark btn-emtpy visible-xs" type="button" data-toggle="collapse" data-target=".navbar-collapse">
           <i class="fa fa-bars"></i>
@@ -17,6 +17,7 @@
 
 
         <% if logged_in? %>
+        <li><%= link_to "Templates", etemplates_path %></li>
          <li><%= link_to "Stock", xstockplans_path %></li>
          <li><%= link_to "Kwords", kwords_path %></li>
           <li><%= link_to "Albums", albums_path %></li>

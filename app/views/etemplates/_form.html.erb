@@ -1,0 +1,12 @@
+<%= form_for(@etemplate) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+      <%= f.label :title %>
+      <%= f.text_area :title, class: 'form-control',rows: 6,placeholder: "titles use | or Enter to separate" %>
+       <%= f.label :isused %>
+      <%= f.check_box :isused %> <br />
+
+
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+ <% end %>

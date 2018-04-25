@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409013048) do
+ActiveRecord::Schema.define(version: 20180425020022) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "name"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 20180409013048) do
     t.text     "stock"
     t.index ["user_id", "created_at"], name: "index_albums_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_albums_on_user_id"
+  end
+
+  create_table "etemplates", force: :cascade do |t|
+    t.string   "name"
+    t.text     "title"
+    t.boolean  "isused"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_etemplates_on_user_id"
   end
 
   create_table "kwords", force: :cascade do |t|

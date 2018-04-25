@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   resources :kwords
   resources :xstockplans
   resources :xstocks
+  resources :etemplates
 
   resources :xstockplans do
     member do

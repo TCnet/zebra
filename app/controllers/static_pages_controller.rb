@@ -14,7 +14,7 @@ class StaticPagesController < ApplicationController
   end
 
   def help
-    @colors = %w{be lb na db tu re wr mr bl bh wh gy dg gn pe ye pi or br kh}
+    @colors = COLORS
   end
 
   def about
