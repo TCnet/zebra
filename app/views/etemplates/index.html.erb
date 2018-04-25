@@ -14,6 +14,8 @@
           </td>
           <td>IsUsed
           </td>
+           <td>Date
+          </td>
            <td>Options
             </td>
 
@@ -30,6 +32,10 @@
         <td>
 
           <%= ob.isused %>
+
+        </td>
+        <td>
+          <%= time_ago_in_words(ob.created_at) %> ago.
 
         </td>
         <td><p>

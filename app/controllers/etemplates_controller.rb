@@ -44,7 +44,7 @@ class EtemplatesController < ApplicationController
   #end update
 
   def index
-    @etemplates = current_user.etemplates.paginate(page: params[:page])
+    @etemplates = current_user.etemplates.order(isused: :desc).order(created_at: :desc).paginate(page: params[:page])
   end
   
 

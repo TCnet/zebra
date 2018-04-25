@@ -57,7 +57,7 @@ class KwordsController < ApplicationController
     # @albums = current_user.albums.search(params[:q]).paginate(page: params[:page])
    # @kwords = current_user.kwords.all
 
-    @kwords=current_user.kwords.paginate(page: params[:page])
+    @kwords=current_user.kwords.where(sql,"%#{params[:q]}%").order(created_at: :desc).paginate(page: params[:page])
   end
     
 

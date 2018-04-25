@@ -19,6 +19,10 @@
           <%= link_to kword.name, kword %>
 
         </td>
+         <td>
+          <%= time_ago_in_words(kword.created_at) %> ago.
+
+        </td>
         <td><p>
 <%= link_to "edit",edit_kword_path(kword) %> | <%= link_to "delete", kword, method: :delete, data: { confirm: "You sure?"} %>
 </p></td>

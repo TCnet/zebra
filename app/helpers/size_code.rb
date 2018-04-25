@@ -3,23 +3,29 @@ module SizeCode
   #size_map
   def size_map_for (size)
     case size.downcase
-    when "xs","26"
+    when "xxxxs","24"
+      "XXXX-Small"
+    when "xxxs","26"
+      "XXX-Small"
+    when "xxs","28"
+      "XX-Small"
+    when "xs","29"
       "X-Small"
-    when "s","28"
+    when "s","30"
       "Small"
-    when "m", "29"
+    when "m", "32"
       "Medium"
-    when "l", "30"
+    when "l", "34"
       "Large"
-    when "xl", "31"
+    when "xl", "36"
       "X-Large"
-    when "xxl","2xl", "32"
+    when "xxl","2xl", "38"
       "XX-Large"
-    when "3xl","xxxl", "34"
+    when "3xl","xxxl", "40"
       "XXX-Large"
-    when "4xl","xxxxl", "36"
+    when "4xl","xxxxl", "42"
       "XXXX-Large"
-    when "5xl","xxxxxl","38"
+    when "5xl","xxxxxl","44"
       "XXXXX-Large"
     when "f"
       "X-Large"
@@ -32,19 +38,24 @@ module SizeCode
   #end size map
 
   #size for the us
-  def size_for(size,n,separate, usszie)
+  def size_for(size,n,separate, usszie,asize)
+    result=size
     ob = usszie.split(' ')
+    asize_arry = asize.tr("\n\r","|").split('|')
     if !usszie.empty? 
       if( ob[n].upcase =~ /[A-Z]$/ )
-        return ob[n].upcase
+       
+        result = !asize_arry[n].nil?? ob[n].upcase+asize_arry[n] : ob[n].upcase
+        return result
         
       else
-        return "US"+separate+ob[n]
+        result = !asize_arry[n].nil?? "US"+separate+ob[n]+asize_arry[n] : "US"+separate+ob[n]
+        return result
       end
     elsif(size.downcase=="tm")
       return "One Size"
     else
-      return size.upcase
+      return  !asize_arry[n].nil?? size.upcase+asize_arry[n] : size.upcase
     end
   end
   #end size_for

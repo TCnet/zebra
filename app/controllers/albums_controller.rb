@@ -35,7 +35,7 @@ class AlbumsController < ApplicationController
     @album = Album.find(params[:id])
     @etemplate =  current_user.etemplates.first
     if(current_user.etemplates.count>0)
-      @etemplate =  current_user.etemplates.order(isused: :desc).first
+      @etemplate =  current_user.etemplates.order(isused: :desc).order(created_at: :desc).first
       
     else
       @etemplate = current_user.etemplates.build()
@@ -265,12 +265,12 @@ class AlbumsController < ApplicationController
    
    
    
-          
+   # size       
     code.each_with_index do |f,n|
       csize.each_with_index do |e,m|
         num = n*csize.length+m+titlecloum+1
         colorname = color_for(f)
-        sizename = size_for(e,m,"-", album_params[:ussize])
+        sizename = size_for(e,m," ", album_params[:ussize],album_params[:asize])
 
         #set points
         if(t_ob=="bullet_point1")
@@ -637,7 +637,7 @@ class AlbumsController < ApplicationController
   private
     
     def album_params
-      params.require(:album).permit(:name, :summary,:csize,:ussize,:brand,:fullname,:dname,:description,:dnote,:keywords,:points,:price,:stock)
+      params.require(:album).permit(:name, :summary,:csize,:ussize,:brand,:fullname,:dname,:description,:dnote,:keywords,:points,:price,:stock,:asize)
     end
 
     def correct_album
