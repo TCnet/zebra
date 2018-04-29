@@ -39,10 +39,10 @@ class AlbumsController < ApplicationController
 
     @album.update_attributes(album_params)
     @etemplate = get_template current_user
-    title_arry = @etemplate.title.split(' ')
+    #title_arry = @etemplate.title.split(' ')
     path= File.join Rails.root, 'public/'
-    newalbums= Album.find params[:id].split(' ')
-    filename =@album.name
+    newalbums= Album.where(id: params[:id]) 
+    filename = @album.name
     if !newalbums.nil?
      
       outamazon newalbums,@etemplate,path,current_user,filename
