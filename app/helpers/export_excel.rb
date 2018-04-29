@@ -337,7 +337,7 @@ module ExportExcel
         
         code.each_with_index do |f,n|
           csize.each_with_index do |e,m|
-            num = n*csize.length+m+c_cloum+1
+            num = n*csize.length+m+1
             sn = (num-1)*5+5
 
             sheet1[num+1+c_cloum,t_num] = key_array[sn].join(',')
