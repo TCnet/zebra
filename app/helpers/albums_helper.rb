@@ -4,6 +4,22 @@ module AlbumsHelper
   include SizeCode
   include EtemplateSeed
 
+  def get_template(user)
+    etemplate =  user.etemplates.first
+    if(user.etemplates.count>0)
+      etemplate = user.etemplates.order(isused: :desc).order(created_at: :desc).first
+      
+    else
+      etemplate = user.etemplates.build()
+      etemplate.name="Default_template_2015"
+      etemplate.title=DEFAULT_E
+      etemplate.isused= true
+      etemplate.save
+
+    end
+    return etemplate
+  end
+
   def category_for(all)
     result= []
     all.each do |f|

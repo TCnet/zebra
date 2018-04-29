@@ -57,9 +57,9 @@ Rails.application.routes.draw do
   
   resources :albums do
     member do
-     
       match :exportexcel, to: :exportexcel, via: [:post, :patch]
     end
+    post :out_multiple, action: :outexcel, on: :collection
   end
 
   resources :photos do

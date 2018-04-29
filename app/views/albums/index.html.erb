@@ -10,10 +10,32 @@
 
 
     <div class="row albums">
+      <%= form_tag out_multiple_albums_path, method: :post  do %>
+      <div class="row">
+      <div class=" col-sm-1">
+        <input type="checkbox" onclick="toggle_checkall('album', this.checked);" />
+      </div>
+      <div class="col-sm-3"><%= submit_tag "Export",:class => "btn btn-large btn-primary" %></div>
+      <div class="col-sm-8"></div>
+      </div>
 
-     <%= render @albums %>
+
+       <%= render @albums %>
+       <% end %>
      </div>
-  <%= will_paginate %>
+    <%= will_paginate %>
+    <script>
+function toggle_checkall(field_name, state) {
+  var checkboxes = document.getElementsByTagName('input');
+  var count = checkboxes.length;
+  for (var i = 0; i < count; i++) {
+    if (checkboxes[i].type == "checkbox"
+        && checkboxes[i].name == field_name + "_ids[]") {
+      checkboxes[i].checked = state;
+    }
+  }
+}
+</script>
 
   </div>
 
