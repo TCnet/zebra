@@ -5,7 +5,7 @@ module ExportExcel
 
   Spreadsheet.client_encoding = "UTF-8"  
   
-  def outamazon(albums,etemplate,path,user,filename)
+  def outamazon(albums,etemplate,path,user)
    
 
     book = Spreadsheet::Workbook.new
@@ -32,11 +32,9 @@ module ExportExcel
 
     #定位 用于计数
     c_cloum =0
-
     
-    if albums.count >0
+
     albums.each_with_index do |album,a_num|
-     
       photos = album.photos
       sizeob = photos.find_by(name: "size.jpg")
       
@@ -452,7 +450,7 @@ module ExportExcel
 
 
     #create excel
-    filename = filename+".xls";
+    filename = etemplate.name+Time.now.to_s+".xls";
 
     file_path=path+"uploads/export/"+filename
 
@@ -464,7 +462,6 @@ module ExportExcel
     
     File.open(file_path, 'r') do |f|
       send_data f.read.force_encoding('BINARY'), :filename => filename, :type => "application/xls", :disposition => "inline"
-    end
     end
     
   end
