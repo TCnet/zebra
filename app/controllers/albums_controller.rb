@@ -81,25 +81,24 @@ class AlbumsController < ApplicationController
   end
 
   def outexcel
-    #id = params[:id]
-    #id = (params[:album_ids] || []) if(id == "out_multiple")
+   
+    
+    id = params[:id]
+    id = (params[:album_ids] || []) if(id == "out_multiple")
     id = params[:album_ids]
     path= File.join Rails.root, 'public/'
     etemplate= get_template current_user
+    
     filename = etemplate.name+"_"+Time.now.strftime('%Y-%m-%d')
     #flash[:sucess] = obs.first.name
-    if(id.nil?||id.empty?)
+    if(id.nil?)
       flash[:danger] = "Please select album first!"
       redirect_to albums_path
     else
       obs= Album.find id
-      if obs.nil?
-        flash[:danger] = "Please check album is exist!"
-        redirect_to albums_path
-      else
-        outamazon obs,etemplate,path,current_user,filename
-      end
+      outamazon obs,etemplate,path,current_user,filename
     end
+    
     
   end
 
