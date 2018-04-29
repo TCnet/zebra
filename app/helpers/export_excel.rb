@@ -5,7 +5,7 @@ module ExportExcel
 
   Spreadsheet.client_encoding = "UTF-8"  
   
-  def outamazon(albums,etemplate,path,user)
+  def outamazon(albums,etemplate,path,user,outfilename)
    
 
     book = Spreadsheet::Workbook.new
@@ -450,7 +450,7 @@ module ExportExcel
 
 
     #create excel
-    filename = etemplate.name+Time.now.to_s+".xls";
+    filename = outfilename+".xls";
 
     file_path=path+"uploads/export/"+filename
 
