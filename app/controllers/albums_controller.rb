@@ -43,8 +43,15 @@ class AlbumsController < ApplicationController
     path= File.join Rails.root, 'public/'
     newalbums= Album.find params[:id].split(' ')
     filename =@album.name
+    if !newalbums.nil?
+     
+      outamazon newalbums,@etemplate,path,current_user,filename
+    else
+      flash[:danger] = "Please check album is exist!"
+      redirect_to album_path
+    end
+      
 
-    outamazon newalbums,@etemplate,path,current_user,filename
            
   end
 
@@ -86,7 +93,12 @@ class AlbumsController < ApplicationController
       redirect_to albums_path
     else
       obs= Album.find id
-      outamazon obs,etemplate,path,current_user,filename
+      if obs.nil?
+        flash[:danger] = "Please check album is exist!"
+        redirect_to albums_path
+      else
+        outamazon obs,etemplate,path,current_user,filename
+      end
     end
     
   end
