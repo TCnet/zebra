@@ -81,14 +81,14 @@ class AlbumsController < ApplicationController
   end
 
   def outexcel
-    id = params[:id]
-    id = (params[:album_ids] || []) if(id == "out_multiple")
+    #id = params[:id]
+    #id = (params[:album_ids] || []) if(id == "out_multiple")
     id = params[:album_ids]
     path= File.join Rails.root, 'public/'
     etemplate= get_template current_user
     filename = etemplate.name+"_"+Time.now.strftime('%Y-%m-%d')
     #flash[:sucess] = obs.first.name
-    if(id.nil?)
+    if(id.nil?||id.empty?)
       flash[:danger] = "Please select album first!"
       redirect_to albums_path
     else
