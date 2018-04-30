@@ -35,6 +35,7 @@ module ExportExcel
     
 
     albums.each_with_index do |album,a_num|
+      
       photos = album.photos
       sizeob = photos.find_by(name: "size.jpg")
       
@@ -59,8 +60,8 @@ module ExportExcel
       csize = album.csize.upcase.split(' ')
       ussize = to_us_size_for album.ussize,csize,"Tag Size "
       keywords_arry = album.keywords.tr("\n\r",",").split(',').map{|x| x.strip }.uniq.delete_if{|x| !x.to_s.present?}
-      price_arry = album.price.tr(" ",",").tr("|",",").split(',')
-      stock_arry = stock_two_arry(code.length,csize.length,album.stock)
+      price_arry = album.price.nil?? " " : album.price.tr(" ",",").tr("|",",").split(',')
+      stock_arry = album.stock.nil?? " " : stock_two_arry(code.length,csize.length,album.stock)
       keywords_uniq = album.keywords.tr("\n\r"," ").split(' ').uniq.join(' ')[0,1000]
       #album_params[:keywords] = 
       keywords_total = code.length * csize.length * 5+5
@@ -465,6 +466,9 @@ module ExportExcel
     end
     
   end
+  #end out
+
+  
 
 
   
