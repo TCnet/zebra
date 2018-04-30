@@ -35,7 +35,7 @@ module ExportExcel
     
 
     albums.each_with_index do |album,a_num|
-      album.update_all()
+      #album.update_all()
       photos = album.photos
       sizeob = photos.find_by(name: "size.jpg")
       
