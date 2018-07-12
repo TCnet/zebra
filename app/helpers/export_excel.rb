@@ -224,7 +224,7 @@ module ExportExcel
         end
         if(t_ob=="item_name")
           sheet1[1+c_cloum,t_num] = fullname_for(brandname,fullname,"","")
-          sheet1[num+c_cloum,t_num]=  fullname_for(brandname,fullname,colorname,sizename.tr("-","").tr("/","").split(' ').join(' '))
+          sheet1[num+c_cloum,t_num]=  fullname_for(brandname,fullname,colorname,sizename.tr("/","-").split(' ').join(' '))
         end
         if(t_ob=="fulfillment_latency")
           sheet1[1+c_cloum,t_num] = 5
