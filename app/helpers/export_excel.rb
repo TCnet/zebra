@@ -48,7 +48,7 @@ module ExportExcel
       code = code_for photos, user.imgrule
       
       
-      keywords_type=1
+      keywords_type=3
       is_in=false
       otherimg_num = get_titlenumber title_arry,"other_image"
       parentsku = album.name.upcase
@@ -308,18 +308,54 @@ module ExportExcel
     end
     #end
 
+    #新版设置keywords
+    if(t_ob=="generic_keywords")
+      
+    end
+    
+    
+    #end新版设置keywords
+
         #设置keywors
     
     if(t_ob=="generic_keywords1")
+
+      if keywords_type == 3
+        keywords_total = code.length * csize.length 
+        if(keywords_arry.length<keywords_total)
+          sheet1[1+c_cloum,t_num] =  keywords_arry.join(',')
+          
+       
+        elsif (keywords_arry.length > keywords_total)
+          key_array= keywords_for keywords_total,keywords_arry
+          
+          
+          
+          code.each_with_index do |f,n|
+            csize.each_with_index do |e,m|
+              num = n*csize.length+m+1
+              sn = (num-1)*1
+
+              sheet1[num+1+c_cloum,t_num] = key_array[sn].join(',')[0,250]
+              
+              
+            end
+          end
+        end
+        
+      end
+        
+
 
       if keywords_type == 1
         if(keywords_arry.length<keywords_total)
           sheet1[1+c_cloum,t_num] =  keywords_arry.join(',')
           
-        end
-      else
+        
+      elsif keywords_type==2
         #for keywords 2
         sheet1[1+c_cloum,num] = keywords_uniq
+        end
       end
 
 
@@ -351,7 +387,8 @@ module ExportExcel
         end
       end
       
-    else
+     
+      elsif keywords_type==2
       #keywords 2
       key_array = keywords_for 4,keywords_arry
 
