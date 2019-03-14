@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180430031023) do
+ActiveRecord::Schema.define(version: 20190314035634) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "name"
@@ -33,6 +33,49 @@ ActiveRecord::Schema.define(version: 20180430031023) do
     t.text     "asize"
     t.index ["user_id", "created_at"], name: "index_albums_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_albums_on_user_id"
+  end
+
+  create_table "dproducts", force: :cascade do |t|
+    t.string   "sku"
+    t.string   "name"
+    t.integer  "parent"
+    t.float    "dprice"
+    t.integer  "depotid"
+    t.float    "weight"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "cname"
+    t.index ["user_id"], name: "index_dproducts_on_user_id"
+  end
+
+  create_table "dships", force: :cascade do |t|
+    t.string   "ordernum"
+    t.string   "dealnum"
+    t.string   "sku"
+    t.integer  "num"
+    t.string   "name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "address3"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "customize"
+    t.string   "remark"
+    t.string   "source"
+    t.string   "tracknum"
+    t.float    "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float    "price"
+    t.string   "sender"
+    t.integer  "user_id"
+    t.string   "excelfile"
+    t.index ["user_id"], name: "index_dships_on_user_id"
   end
 
   create_table "etemplates", force: :cascade do |t|

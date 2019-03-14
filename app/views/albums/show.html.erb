@@ -13,8 +13,12 @@
       <span><%= link_to f,f,target:"_blank" %></span>
       <% end %>
 
-<span><%= link_to "edit",edit_album_path(@album) %> | <%= link_to "delete", @album, method: :delete, data: { confirm: "You sure?"} %></span>
+<span><%= link_to "edit",edit_album_path(@album) %> | <%= link_to "delete", @album, method: :delete, data: { confirm: "You sure?"} %> 
+ 
+</span>
+
 </section>
+
 <div>
    <%=render 'shared/upload_form'%>
 </div>

@@ -1,0 +1,14 @@
+<tr>
+  <td>
+  	<%= check_box_tag "dproduct_ids[]", dproduct.id  %>
+  </td>
+<td> <span>
+   <%= link_to dproduct.sku, dproduct %>
+  </span></td>
+          
+			<td><%= dproduct.name %></td>
+			<td><%= dproduct.cname %></td>
+			<td><%= dproduct.weight %></td>
+			<td><%= dproduct.dprice %></td>
+            <td> <%= link_to "delete", dproduct, method: :delete, data: { confirm: "You sure?"} %></td>
+        </tr>

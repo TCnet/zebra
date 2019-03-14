@@ -1,0 +1,22 @@
+<% provide(:title, 'Upload dships') %>
+<% provide(:button_text, 'Upload') %>
+<div class="row">
+  <aside class="col-md-3 products_menu">
+   <%= render 'shared/dproduct_menu' %>
+  </aside>
+  <div class="col-md-9">
+    <h3>Upload dships</h3>
+
+
+    <div class="row ">
+      <%= form_for(@dship, html: { multipart: true }) do |f| %>
+      <%= label_tag "Please select the file!"%>
+      <%= f.file_field "excelfile", class: 'form-control' %>
+       <%= submit_tag "Sub", class: "btn btn-primary" %>
+   <% end %>
+     </div>
+
+
+  </div>
+
+</div>

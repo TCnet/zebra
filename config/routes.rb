@@ -47,6 +47,13 @@ Rails.application.routes.draw do
   resources :xstockplans
   resources :xstocks
   resources :etemplates
+  
+  resources :dships do
+    post :out_multiple, action: :outexcel, on: :collection
+  end
+  resources :dproducts do
+    post :out_multiple, action: :outexcel, on: :collection
+  end
 
   resources :xstockplans do
     member do
@@ -58,8 +65,11 @@ Rails.application.routes.draw do
   resources :albums do
     member do
       match :exportexcel, to: :exportexcel, via: [:post, :patch]
+      match :outpic, to: :outpic, via: [:post, :patch]
     end
+   
     post :out_multiple, action: :outexcel, on: :collection
+   
   end
 
   resources :photos do

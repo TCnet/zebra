@@ -1,0 +1,14 @@
+<tr>
+  
+<td>
+	<%= check_box_tag "dship_ids[]", dship.id  %>
+</td>
+          <td><%= dship.ordernum %></td>
+			<td><%= dship.name %></td>
+			<td><%= dship.country %></td>
+			<td><%= dship.tracknum %></td>
+			<td><%= dship.weight %></td>
+			<td><%= dship.price %></td>
+			<td><%= dship.excelfile %></td>
+            <td> <%= link_to "delete", dship, method: :delete, data: { confirm: "You sure?"} %></td>
+        </tr>

@@ -318,7 +318,7 @@ module ExportExcel
 
         #设置keywors
     
-    if(t_ob=="generic_keywords1")
+    if(t_ob=="generic_keywords1"||t_ob=="generic_keywords")
 
       if keywords_type == 3
         keywords_total = code.length * csize.length 

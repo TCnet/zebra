@@ -25,7 +25,7 @@ class UpcsController < ApplicationController
 
     #book = Spreadsheet.open (path+'/uploads/upcs/upc_test.xls')
     #Spreadsheet.open('~/upc_test.xlsx', 'r')
-    book = Spreadsheet.open (path+ "#{uploader.store_path}")
+    book = Spreadsheet.open (path + "#{uploader.store_path}")
     
    
     sheet1 = book.worksheet 0

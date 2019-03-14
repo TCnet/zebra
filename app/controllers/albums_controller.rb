@@ -1,10 +1,12 @@
 # coding: utf-8
 class AlbumsController < ApplicationController
+  
  before_action :logged_in_user, only: [:index,:edit,:show, :create, :destroy]
  before_action :correct_album, only: [:show,:edit, :update, :destroy]
  include PhotosHelper
  include AlbumsHelper
  include ExportExcel
+
  require "spreadsheet"
 
  Spreadsheet.client_encoding = "UTF-8"  
@@ -79,6 +81,8 @@ class AlbumsController < ApplicationController
     
    
   end
+  
+
 
   def outexcel
    

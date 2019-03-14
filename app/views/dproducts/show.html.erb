@@ -1,0 +1,23 @@
+<% provide(:title, "Show dproducts") %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/dproduct_menu' %>
+  </aside>
+  <div class="col-md-9">
+
+    <section class="album_info">
+      <span id="album_img"><%= image_tag @coverimg,width:"120",height: "120"%></span>
+	  <span><%=@dproduct.sku%></span>
+      <span><%=@dproduct.name%></span>
+      <% @herf.each do |f|%>
+      <span><%= link_to f,f,target:"_blank" %></span>
+      <% end %>
+
+<span><%= link_to "edit",edit_dproduct_path(@dproduct) %> | <%= link_to "delete", @dproduct, method: :delete, data: { confirm: "You sure?"} %>
+
+</span>
+
+    </section>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<% provide(:title, 'My depot') %>
+
+<div class="row">
+	<aside class="col-md-3 products_menu">
+		<%= render 'shared/dproduct_menu' %>
+	</aside>
+	<div class="col-md-9">
+		<h1>My Depot</h1>
+		 <%= form_tag out_multiple_dproducts_path, method: :post  do %>
+        <div class="row">
+        <div class=" col-sm-1">
+          <input type="checkbox" onclick="toggle_checkall('dproduct', this.checked);" />
+        </div>
+        <div class="col-sm-3"><%= submit_tag "Export",:class => "btn btn-large btn-primary" %></div>
+	  
+        <div class="col-sm-8"></div>
+        </div>
+		<div class="row ">
+			<table  id="myTable" class="table" >
+				<thead>
+					<tr>
+					<th></th>
+						<th>SKU</th>
+						<th>Name</th>
+						<th>Cname</th>
+						<th>Wheight</th>
+						<th>Declare Price</th>
+						<th>Options</th>
+
+					</tr>
+
+				</thead>
+				<tbody>
+					<%= render @dproducts %>
+
+				</tbody>
+			</table>
+
+		</div>
+
+
+		<%= will_paginate %>
+		<% end %>
+
+
+	</div>
+	<script>
+		$(document).ready(function(){
+			$('#myTable').DataTable();
+		});
+		</script>
+<script>
+function toggle_checkall(field_name, state) {
+  var checkboxes = document.getElementsByTagName('input');
+  var count = checkboxes.length;
+  for (var i = 0; i < count; i++) {
+    if (checkboxes[i].type == "checkbox"
+        && checkboxes[i].name == field_name + "_ids[]") {
+      checkboxes[i].checked = state;
+    }
+  }
+}
+</script>
+	</div>
