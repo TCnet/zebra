@@ -6,12 +6,12 @@
 	</aside>
 	<div class="col-md-9">
 		<h3>My Shipping</h3>
-		 <%= form_tag out_multiple_dships_path, method: :post  do %>
+		
         <div class="row">
         <div class=" col-sm-1">
           <input type="checkbox" onclick="toggle_checkall('dship', this.checked);" />
         </div>
-        <div class="col-sm-3"><%= submit_tag "Export",:class => "btn btn-large btn-primary" %></div>
+        <div class="col-sm-3"></div>
 	  
         <div class="col-sm-8"></div>
         </div>
@@ -31,13 +31,29 @@
 						<th>Price</th>
 						<th>Excelfile</th>
 						<th>Date</th>
-						<th>Options</th>
+						
 
 					</tr>
 
 				</thead>
 				<tbody>
-					<%= render @dships %>
+					<% @dships.each do |dship|%>
+					<tr>
+                   
+					<td>
+						<%= check_box_tag "dship_ids[]", dship.id  %>
+					</td>
+					          <td><%= dship.ordernum %></td>
+								<td><%= dship.name %></td>
+								<td><%= dship.country %></td>
+								<td><%= dship.tracknum %></td>
+								<td><%= dship.weight %></td>
+								<td><%= dship.price %></td>
+								<td><%= dship.excelfile %></td>
+								<td><%= dship.created_at.strftime('%Y-%m-%d') %></td>
+            
+					        </tr>
+							<%end%>
 
 				</tbody>
 			</table>
@@ -47,7 +63,7 @@
 
 		<%= will_paginate %>
 
-       <% end %>
+      
 	</div>
 	<script>
 		$(document).ready(function(){

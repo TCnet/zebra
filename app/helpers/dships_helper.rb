@@ -12,6 +12,7 @@ module DshipsHelper
     return DEFAULT_EUB_SKU 
   end
   
+  #设置除美国以外的申报价值15
   def set_ca_price(price,country,num)
     s= price
     if(country.upcase!="UNITED STATES"&&country.upcase!="US")
@@ -21,6 +22,7 @@ module DshipsHelper
     
   end
   
+  #给订单号加前缀
   def ad_str(ordernum,user)
     str=ordernum
     if !str.start_with?(DEFAULT_AD)

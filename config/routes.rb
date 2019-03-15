@@ -48,7 +48,10 @@ Rails.application.routes.draw do
   resources :xstocks
   resources :etemplates
   
+  get '/dship_check', to: 'dships#check'
+   get '/dship_finish', to: 'dships#finish'
   resources :dships do
+    
     post :out_multiple, action: :outexcel, on: :collection
   end
   resources :dproducts do

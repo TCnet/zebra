@@ -10,5 +10,6 @@
 			<td><%= dship.weight %></td>
 			<td><%= dship.price %></td>
 			<td><%= dship.excelfile %></td>
+			<td><%= dship.created_at.strftime('%Y-%m-%d') %></td>
             <td> <%= link_to "delete", dship, method: :delete, data: { confirm: "You sure?"} %></td>
         </tr>

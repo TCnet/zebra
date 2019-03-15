@@ -5,15 +5,26 @@ class DshipsController < ApplicationController
   include AlbumsHelper
   include DshipsHelper
   include ExportEub
+  
   def index
-    
-    @dships=current_user.dships.order(created_at: :desc).paginate(page: params[:page])
+    @dships=current_user.dships.where("tracknum is null and price is null ").order(created_at: :desc).paginate(page: params[:page])
+  end
+  
+  def check
+    @dships=current_user.dships.where("tracknum <> '' and price is null ").order(created_at: :desc).paginate(page: params[:page])
+    render 'dship_check'
+  end
+  
+  def finish
+    @dships=current_user.dships.where("tracknum <> '' and price is not null ").order(created_at: :desc).paginate(page: params[:page])
+    render 'dship_finish'
   end
 
   def show
     @dship = Dship.find(params["id"])
     
   end
+  
     
   def outexcel
    
@@ -90,6 +101,10 @@ def save_import
     p.customize= row[14]
     p.remark= row[15]
     p.source= row[16]
+    p.tracknum = row[17]
+    p.weight = row[18]
+    p.price = row[19]
+    p.sender = row[20]
     p.excelfile = uploader.filename
     p.save
      

@@ -6,12 +6,12 @@
 	</aside>
 	<div class="col-md-9">
 		<h3>My Shipping</h3>
-		 <%= form_tag out_multiple_dships_path, method: :post  do %>
+		
         <div class="row">
         <div class=" col-sm-1">
           <input type="checkbox" onclick="toggle_checkall('dship', this.checked);" />
         </div>
-        <div class="col-sm-3"><%= submit_tag "Export",:class => "btn btn-large btn-primary" %></div>
+        <div class="col-sm-3"></div>
 	  
         <div class="col-sm-8"></div>
         </div>
@@ -47,7 +47,7 @@
 
 		<%= will_paginate %>
 
-       <% end %>
+       
 	</div>
 	<script>
 		$(document).ready(function(){
