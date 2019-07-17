@@ -111,7 +111,7 @@ module ExportEub
            sheet2[c_cloum,t_num]= skustr[0]
          when "商品中文名称"
            if dpro
-             sheet2[c_cloum,t_num]= dpro.cname+" "+dship.sku
+             sheet2[c_cloum,t_num]= dpro.cname+" "+skustr.join(' ')
            else
              sheet2[c_cloum,t_num]= dship.sku
            end

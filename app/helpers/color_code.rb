@@ -1,7 +1,7 @@
 # coding: utf-8
 module ColorCode
 
-  COLORS = %w{KH LK DK BG BL BE LB DB NB SB BZ BR CO LC DC CT GD GR AG LN DN GY LG DG MT MC OW OR DO LO RO PI LP DP PE LE DE RE DR LR WR MR SL TT TE WH YE LY DY GM NM KM YM BM LM DM KM iv}
+  COLORS = %w{KH LK DK BG BL BE LB DB NB SB GB BZ BR CO LC DC CT GD GR AG LN DN GY LG DG MT MC OW OR DO LO RO PI LP DP PE LE DE RE DR LR WR MR SL TT TE WH YE LY DY GM NM KM YM BM LM DM KM iv}
 
   # color_map
   def color_map_for(name)
@@ -11,7 +11,7 @@ module ColorCode
       "Beige"
     when "bl"
       "Black"
-    when "be","lb","db","nb","sb"
+    when "be","lb","db","nb","sb","gb"
       "Blue"
     when "bz"
       "Bronze"
@@ -80,6 +80,8 @@ module ColorCode
       "Light Blue"
     when "db"
       "Dark Blue"
+    when "gb"
+      "Grey Blue"
     when "nb"
       "Navy Blue"
     when "sb"
