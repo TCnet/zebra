@@ -1,5 +1,6 @@
 class XstockplansController < ApplicationController
-
+   before_action :logged_in_user
+   
   def index
     @xstock_plans = current_user.xstockplans.paginate(page: params[:page])
   end

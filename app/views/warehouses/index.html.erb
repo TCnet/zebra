@@ -1,0 +1,37 @@
+<% provide(:title, '仓库列表') %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/xstock_menu' %>
+  </aside>
+  <div class="col-md-9">
+ <div class="row ">
+	  <h5> 仓库列表</h5>
+      <table class="table">
+		  
+			<th>Name</th>
+			<th>Address</th>
+			
+			
+
+      <% @warehouses.each do |ob| %>
+      <tr>
+        <td>
+          <%= ob.name %>
+        </td>
+        <td>
+          <%= ob.address %>
+        </td>
+       
+
+      <% end %>
+	 
+
+  </table>
+  </div>
+
+ 
+  </div>
+
+
+</div>

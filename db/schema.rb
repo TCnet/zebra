@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190316112149) do
+ActiveRecord::Schema.define(version: 20190721090415) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "name"
@@ -87,6 +87,45 @@ ActiveRecord::Schema.define(version: 20190316112149) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_etemplates_on_user_id"
+  end
+
+  create_table "inoutplans", force: :cascade do |t|
+    t.string   "name"
+    t.text     "inout"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean  "actived"
+    t.index ["user_id"], name: "index_inoutplans_on_user_id"
+  end
+
+  create_table "inoutstocks", force: :cascade do |t|
+    t.string   "sku"
+    t.integer  "normal"
+    t.integer  "sizeup"
+    t.integer  "sizedown"
+    t.integer  "defect"
+    t.boolean  "actived"
+    t.integer  "inoutplan_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["inoutplan_id"], name: "index_inoutstocks_on_inoutplan_id"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.string   "sku"
+    t.integer  "normal"
+    t.integer  "sizeup"
+    t.integer  "sizedown"
+    t.integer  "defect"
+    t.string   "parentsku"
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "warehouse_id"
+    t.index ["user_id"], name: "index_inventories_on_user_id"
+    t.index ["warehouse_id"], name: "index_inventories_on_warehouse_id"
   end
 
   create_table "kwords", force: :cascade do |t|
@@ -168,6 +207,16 @@ ActiveRecord::Schema.define(version: 20190316112149) do
     t.text     "note"
     t.string   "imgrule"
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "warehouses", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.boolean  "isused"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_warehouses_on_user_id"
   end
 
   create_table "xstockplans", force: :cascade do |t|

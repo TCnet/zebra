@@ -1,5 +1,5 @@
 class XstocksController < ApplicationController
-
+  before_action :logged_in_user
   def destroy
     
     @xstock = Xstock.find(params[:id])

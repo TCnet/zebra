@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sku: MyString
+  normal: 1
+  sizeup: 1
+  sizedown: 1
+  defect: 1
+  actived: false
+  inoutplan: one
+
+two:
+  sku: MyString
+  normal: 1
+  sizeup: 1
+  sizedown: 1
+  defect: 1
+  actived: false
+  inoutplan: two

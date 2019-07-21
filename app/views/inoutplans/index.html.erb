@@ -1,0 +1,41 @@
+<% provide(:title, '出库入库') %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/xstock_menu' %>
+  </aside>
+  <div class="col-md-9">
+ <div class="row ">
+	  <h5> 出入库记录</h5>
+      <table class="table">
+		  <th>Name</th>
+		    <th>Actived</th>
+			<th>Date</th>
+			<th>Options</th>
+
+      <% @inoutplans.each do |ob| %>
+      <tr>
+        <td>
+          <%= link_to ob.name, ob %>
+
+        </td>
+		<td>
+			<%= ob.actived==true ? "√":"×"%>
+		</td>
+		<td><%= time_ago_in_words(ob.created_at) %> ago.</td>
+        <td><p>
+<%= link_to "edit",edit_inoutplan_path(ob) %> | <%= link_to "delete", ob, method: :delete, data: { confirm: "You sure?"} %>
+</p></td>
+        </tr>
+
+      <% end %>
+	 
+
+  </table>
+  </div>
+
+ <%= will_paginate %>
+  </div>
+
+
+</div>

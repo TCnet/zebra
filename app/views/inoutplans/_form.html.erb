@@ -1,0 +1,9 @@
+<%= form_for(@inoutplan) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+	<%= f.text_area :inout, class: 'form-control',rows: 6,placeholder: "ex:XDMPT001 10 2 3 1" %>
+	<p><%= f.label :actived %><%= f.check_box :actived %>  </p>
+   
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+ <% end %>

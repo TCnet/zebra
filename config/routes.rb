@@ -3,6 +3,16 @@ Rails.application.routes.draw do
 
  
 
+ 
+
+
+
+
+
+
+
+
+
   get 'password_resets/new'
 
   get 'password_resets/edit'
@@ -47,6 +57,11 @@ Rails.application.routes.draw do
   resources :xstockplans
   resources :xstocks
   resources :etemplates
+  resources :inoutplans
+  resources :inoutstocks
+  resources :inventories
+  resources :warehouses
+  
   
   get '/dship_check', to: 'dships#check'
    get '/dship_finish', to: 'dships#finish'
@@ -59,6 +74,13 @@ Rails.application.routes.draw do
   end
 
   resources :xstockplans do
+    member do
+      match :importexcel, to: :importexcel, via: [:post, :patch]
+      match :exportexcel, to: :exportexcel, via: [:post, :patch]
+    end
+  end
+  
+  resources :inoutplans do
     member do
       match :importexcel, to: :importexcel, via: [:post, :patch]
       match :exportexcel, to: :exportexcel, via: [:post, :patch]

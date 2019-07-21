@@ -1,0 +1,64 @@
+<% provide(:title, "出库入库") %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/xstock_menu' %>
+  </aside>
+  <div class="col-md-9">
+
+    <section class="album_info">
+      <span><%=@inoutplan.name%></span>
+
+
+<span><%= link_to "edit",edit_inoutplan_path(@inoutplan) %> | <%= link_to "delete", @inoutplan, method: :delete, data: { confirm: "You sure?"} %></span>
+    </section>
+    <div class=" ">
+		 
+      <table class="table">
+        <tr>
+          <th>SKU</th>
+
+          <th>Total</th>
+          <th>Normal</th>
+          <th>Defact</th>
+          <th>Sizeup</th>
+          <th>Sizedown</th>
+          <th>Options</th>
+          </tr>
+		 
+      <% @inoutstocks.each do |ob| %>
+      <tr>
+        <td> <%=  ob.sku %>  </td>
+
+        <td> <%=  ob.normal + ob.defect + ob.sizeup+ ob.sizedown%>  </td>
+        <td> <%=  ob.normal %>  </td>
+        <td> <%=  ob.defect %>  </td>
+		<td> <%=  ob.sizeup %>  </td>
+		<td> <%=  ob.sizedown %>  </td>
+       
+
+         <td>
+           <%= link_to "delete", ob, method: :delete, data: { confirm: "You sure?"} %>
+         </td>
+         </tr>
+       <% end %>
+
+  </table>
+  </div>
+
+
+    <div class="row">
+         <%= form_for(@inoutplan,url: { action: "importexcel" }, html: { multipart: true }) do |f| %>
+      <div class="col-md-6">
+        <%= f.file_field "excelfile", class: 'form-control' %>
+        </div>
+           <div class="col-md-3">
+            <%= f.submit "ImportExcel",:class => "btn btn-large btn-primary" %>
+   </div>
+           <% end %>
+              </div>
+  <div class="col-md-3">
+       <%=form_for @inoutplan, url: { action: "exportexcel" }  do |f| %>
+     <%= f.submit "ExportExcel",:class => "btn btn-large btn-primary" %>
+     <% end %>
+      </div>

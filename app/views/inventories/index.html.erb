@@ -1,0 +1,62 @@
+<% provide(:title, '当前库存') %>
+
+<div class="row">
+  <aside class="col-md-3 albums_menu">
+   <%= render 'shared/xstock_menu' %>
+  </aside>
+  <div class="col-md-9">
+ <div class="row ">
+	  <h5> 产品库存--<%= @warehouse.name %>(<%= @inventories.count %>)</h5>
+      <table class="table">
+		  <th>SKU</th>
+		    <th>ParentSKU</th>
+			<th>Name</th>
+			<th>Nomal</th>
+			<th>Defect</th>
+			<th>Sizeup</th>
+			<th>Sizedown</th>
+			<th>Total</th>
+			<th>Options</th>
+
+      <% @inventories.each do |ob| %>
+      <tr>
+        <td>
+          <%= ob.sku %>
+        </td>
+        <td>
+          <%= ob.parentsku %>
+        </td>
+        <td>
+          <%= ob.name %>
+        </td>
+        <td>
+          <%= ob.normal %>
+        </td>
+        <td>
+          <%= ob.defect %>
+        </td>
+       
+        <td>
+          <%= ob.sizeup %>
+        </td>
+        <td>
+          <%= ob.sizedown %>
+        </td>
+        <td> <%=  ob.normal + ob.defect + ob.sizeup+ ob.sizedown%>  </td>
+		
+        <td><p>
+  <%= link_to "delete", ob, method: :delete, data: { confirm: "You sure?"} %>
+</p></td>
+        </tr>
+
+      <% end %>
+	 
+
+  </table>
+  </div>
+
+ <%= will_paginate %>
+  </div>
+
+
+</div>

@@ -9,6 +9,10 @@ class User < ApplicationRecord
   has_many :etemplates, dependent: :destroy
   has_many :dproducts, dependent: :destroy
   has_many :dships, dependent: :destroy
+  has_many :inoutplans, dependent: :destroy
+  has_many :inventories, dependent: :destroy
+  has_many :warehouses, dependent: :destroy
+
   
   #has_many :inventories, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship",
