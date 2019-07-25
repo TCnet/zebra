@@ -6,15 +6,13 @@
   </aside>
   <div class="col-md-9">
  <div class="row ">
-	  <h5> 产品库存--<%= @warehouse.name %>(<%= @inventories.count %>)</h5>
-      <table class="table">
+	  <h5> 产品库存--<%= @warehouse.name %>(共<%= @inventories.count %>个SKU) 共<%=@total%>件 <%=@normal%> | <%=@defect%> | <%=@sizeup%> | <%=@sizedown%></h5>
+      <table class="table" id="inventorTable" >
 		  <th>SKU</th>
 		    <th>ParentSKU</th>
 			<th>Name</th>
-			<th>Nomal</th>
-			<th>Defect</th>
-			<th>Sizeup</th>
-			<th>Sizedown</th>
+			<th>N|Defect</th>
+			<th>Sup|Sd</th>
 			<th>Total</th>
 			<th>Options</th>
 
@@ -30,18 +28,12 @@
           <%= ob.name %>
         </td>
         <td>
-          <%= ob.normal %>
+          <%= ob.normal%> | <%= ob.defect %> 
         </td>
-        <td>
-          <%= ob.defect %>
-        </td>
-       
-        <td>
-          <%= ob.sizeup %>
-        </td>
-        <td>
-          <%= ob.sizedown %>
-        </td>
+		<td>
+			<%= ob.sizeup %> | <%= ob.sizedown %>
+		</td>
+        
         <td> <%=  ob.normal + ob.defect + ob.sizeup+ ob.sizedown%>  </td>
 		
         <td><p>
@@ -55,8 +47,8 @@
   </table>
   </div>
 
- <%= will_paginate %>
+
   </div>
 
-
+  
 </div>

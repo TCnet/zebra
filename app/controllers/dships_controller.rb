@@ -1,4 +1,5 @@
 class DshipsController < ApplicationController
+  before_action :logged_in_user
   require "spreadsheet"
   Spreadsheet.client_encoding = "UTF-8"  
   

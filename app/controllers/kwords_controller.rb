@@ -1,4 +1,5 @@
 class KwordsController < ApplicationController
+  before_action :logged_in_user
   include AlbumsHelper
   include KwordsHelper
 

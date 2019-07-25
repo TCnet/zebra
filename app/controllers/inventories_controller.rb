@@ -1,4 +1,5 @@
 class InventoriesController < ApplicationController
+  before_action :logged_in_user, only: [:index,:edit,:show, :create, :destroy]
   include InoutplansHelper
   
   #当前库存
@@ -8,7 +9,12 @@ class InventoriesController < ApplicationController
       @warehouse = set_default_warehouse
     end
     
-    @inventories = @warehouse.inventories.order(parentsku: :asc).order(sku: :asc).paginate(page: params[:page])
+    @inventories = @warehouse.inventories.order(parentsku: :asc).order(sku: :asc)
+    @normal =@inventories.sum(:normal)
+    @defect = @inventories.sum(:defect)
+    @sizeup = @inventories.sum(:sizeup)
+     @sizedown = @inventories.sum(:sizedown)
+    @total = @normal+@defect+ @sizeup+ @sizedown
   end
   
   def destroy

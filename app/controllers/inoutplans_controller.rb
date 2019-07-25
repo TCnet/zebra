@@ -1,4 +1,5 @@
 class InoutplansController < ApplicationController
+  before_action :logged_in_user
   require "spreadsheet"
   include InoutplansHelper
   Spreadsheet.client_encoding = "UTF-8"

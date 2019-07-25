@@ -1,4 +1,5 @@
 class EtemplatesController < ApplicationController
+  before_action :logged_in_user, only: [:index,:edit,:show, :create, :destroy]
   include EtemplatesHelper
 
   def new
