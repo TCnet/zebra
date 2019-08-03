@@ -1,4 +1,11 @@
 module InoutplansHelper
+  BGCOLORS = ['#553D32','#CC0000', '#EB9500','#EDEAE6','#006DCD']
+  
+  
+  def random_color(num)
+    
+   BGCOLORS.sample(num)
+  end
   
   def twoarray_for_plan(inoutstr,presku)    
     ob = inoutstr.tr("\n","|").split('|')
