@@ -30,7 +30,7 @@ class InoutplansController < ApplicationController
   def update
     @inoutplan =  Inoutplan.find(params[:id])
     #out_stock(@inoutplan,current_warehours)
-    out_stock_str(@inoutplan.inout,current_warehours)
+    out_stock_str(@inoutplan.inout,current_warehours,@inoutplan.presku.to_s)
     @inoutplan.inoutstocks.each do |d|
       d.delete
     end
@@ -39,7 +39,8 @@ class InoutplansController < ApplicationController
       
     
       inouts=inoutplan_params["inout"]
-      str = twoarray_for(inouts)
+      presku=inoutplan_params["presku"]
+      str = twoarray_for_plan(inouts,presku)
       
       str.each_with_index do |f,n|
         p = @inoutplan.inoutstocks.find_by(sku: f[0].upcase)
@@ -70,7 +71,7 @@ class InoutplansController < ApplicationController
       end
       
       
-      in_stock_str(inouts,current_warehours)
+      in_stock_str(inouts,current_warehours,presku)
       #in_stock(@inoutplan,current_warehours)
       #in_stock(@inoutplan,current_warehours)
       #flash[:success] = inouts.to_s
@@ -92,7 +93,7 @@ class InoutplansController < ApplicationController
   def importexcel
     @inoutplan = Inoutplan.find(params[:id])
     #删除之前记录
-    out_stock_str(@inoutplan.inout,current_warehours)
+    out_stock_str(@inoutplan.inout,current_warehours,@inoutplan.presku)
     uploader = ExcelUploader.new
     uploader.store!(params[:inoutplan][:excelfile])
     path= File.join Rails.root, 'public/'
@@ -119,7 +120,7 @@ class InoutplansController < ApplicationController
     #入库
     set_inout(@inoutplan)
     
-    in_stock_str(@inoutplan.inout,current_warehours)
+    in_stock_str(@inoutplan.inout,current_warehours,@inoutplan.presku)
   
     flash[:success] = "Instocks import!"
     redirect_to inoutplan_path(@inoutplan)
@@ -186,7 +187,7 @@ class InoutplansController < ApplicationController
   
     if @inoutplan.save
 
-      str = twoarray_for(inoutplan_params["inout"])
+      str = twoarray_for_plan(inoutplan_params["inout"],inoutplan_params["presku"])
       str.each_with_index do |f,n|
         p = Inoutstock.new
         p.normal= 0
@@ -214,7 +215,7 @@ class InoutplansController < ApplicationController
       end
       
       #in_stock(@inoutplan,current_warehours)
-      in_stock_str(inoutplan_params["inout"],current_warehours)
+      in_stock_str(inoutplan_params["inout"],current_warehours,inoutplan_params["presku"])
       flash[:success] = "stock plan created!"
       redirect_to inoutplans_path
       
@@ -226,7 +227,7 @@ class InoutplansController < ApplicationController
   private
   
     def inoutplan_params
-      params.require(:inoutplan).permit(:name, :inout, :actived)
+      params.require(:inoutplan).permit(:name, :presku, :inout, :actived)
     end
   
 

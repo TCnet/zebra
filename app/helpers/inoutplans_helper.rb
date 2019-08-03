@@ -1,11 +1,11 @@
 module InoutplansHelper
   
-  def twoarray_for(inoutstr)    
+  def twoarray_for_plan(inoutstr,presku)    
     ob = inoutstr.tr("\n","|").split('|')
     result = Array.new
     ob.each_with_index do |f,n|
-      
-      result[n]= f.split(' ')
+      pref= presku.upcase + f
+      result[n]= pref.split(' ')
       
     end
     return result
@@ -18,9 +18,11 @@ module InoutplansHelper
   #set 
   def set_inout(plan)
     inoutstocks= plan.inoutstocks
+   
     str=""
     inoutstocks.each_with_index do |f,n|
-      str += f.sku
+      
+      str += f.sku.upcase
       str += " "
       str += f.normal.to_s 
       str += " "
@@ -34,6 +36,7 @@ module InoutplansHelper
       str+="\r\n"
     end
     plan.inout = str
+    plan.presku =''
     plan.save
     
     
@@ -78,8 +81,8 @@ module InoutplansHelper
   
  
   
-  def out_stock_str(inout,warehouse)
-    str = twoarray_for(inout)
+  def out_stock_str(inout,warehouse,presku)
+    str = twoarray_for_plan(inout,presku)
     
     str.each_with_index do |f,n|
       p = warehouse.inventories.find_by(sku: f[0].upcase)
@@ -108,8 +111,8 @@ module InoutplansHelper
   end
   
   # 根据文本入库
-  def in_stock_str(inout,warehouse)
-    str = twoarray_for(inout)
+  def in_stock_str(inout,warehouse,presku)
+    str = twoarray_for_plan(inout,presku)
     
     str.each_with_index do |f,n|
       p = warehouse.inventories.find_by(sku: f[0].upcase)
