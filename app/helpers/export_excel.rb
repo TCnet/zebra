@@ -454,15 +454,15 @@ module ExportExcel
     end
 
     #设置 sizeimg
-    if(t_ob=="swatch_image_url")
+    if(t_ob=="other_image_url8")
       if sizeob
-        m = t_num-1
+        m = t_num
         sizej=1
         url=geturl(sizeob.picture.url)
         sheet1[1+c_cloum,m]=url
         code.each_with_index do |b,e|
           csize.each_with_index do |c,index|
-            sheet1[sizej+index+1+1+c_cloum,m] = url
+            sheet1[sizej+index+1+c_cloum,m] = url
             
           end
           sizej +=csize.length
