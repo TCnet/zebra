@@ -160,8 +160,13 @@ def save_import
   uploader.store!(params[:dship][:excelfile])
   path= File.join Rails.root, 'public/'
   xlsfile= (path+ "#{uploader.store_path}")
-
-  save_from_xlsx(xlsfile, uploader.filename)
+  if(uploader.filename.end_with?('.xlsx'))
+    save_from_xlsx(xlsfile, uploader.filename)
+  elsif (uploader.filename.end_with?('.xls'))
+     save_from_old(xlsfile, uploader.filename)
+      
+  end
+  
 
   uploader.remove!
   redirect_to dships_path
