@@ -25,6 +25,8 @@ gem 'wkhtmltopdf-binary'
 gem 'spreadsheet'
 gem 'jquery-datatables-rails', '~> 3.4.0'
 
+gem "roo", "~> 2.8.0"
+
 group :development, :test do
   gem 'sqlite3', '1.3.11'
   gem 'byebug', '9.0.0',  platform: :mri

@@ -7,7 +7,7 @@ module ExportEub
   Spreadsheet.client_encoding = "UTF-8"  
   
   
-  
+  # 导出eub订单 模版文件
   def outeub(dships,etemplate,skutemp,path,user,outfilename)
     book = Spreadsheet::Workbook.new
     

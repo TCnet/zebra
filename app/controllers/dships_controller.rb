@@ -1,6 +1,7 @@
 class DshipsController < ApplicationController
   before_action :logged_in_user
   require "spreadsheet"
+  require 'roo'
   Spreadsheet.client_encoding = "UTF-8"  
   
   include AlbumsHelper
@@ -63,14 +64,11 @@ def create
   save_import
 end
 
-def save_import
-  uploader = ExcelUploader.new 
-  uploader.store!(params[:dship][:excelfile])
-  path= File.join Rails.root, 'public/'
-
+# old not use now
+def save_from_old(xlsfile,filename)
   #book = Spreadsheet.open (path+'/uploads/upcs/upc_test.xls')
   #Spreadsheet.open('~/upc_test.xlsx', 'r')
-  book = Spreadsheet.open (path+ "#{uploader.store_path}")
+  book = Spreadsheet.open(xlsfile)
     
    
   sheet1 = book.worksheet 0
@@ -106,10 +104,64 @@ def save_import
     p.weight = row[18]
     p.price = row[19]
     p.sender = row[20]
-    p.excelfile = uploader.filename
+    p.excelfile = filename
     p.save
      
   end
+end
+
+#use roo to read xls
+def save_from_xlsx(xlsfile,filename)
+  
+  xlsx = Roo::Spreadsheet.open(xlsfile)
+  sheet1 = xlsx.sheet(0)
+
+  sheet1.each_with_index  do |row,num|
+    if num>0
+      ordernum = row[0]
+      p= Dship.find_by(ordernum: ordernum)
+      if !p
+        p = Dship.new
+        p.user_id =  current_user.id
+        p.ordernum = ordernum
+      end
+
+      p.dealnum = row[1]
+      
+      p.sku=  row[2]
+      p.num = row[3]
+      p.name=row[4]
+      p.address1= row[5]  
+      p.address2= row[6]
+      p.address3= row[7]
+      p.city= row[8]
+      p.state= row[9]
+      p.zip= row[10]
+      p.country= row[11]
+      p.phone= row[12]
+      p.email= row[13]
+      p.customize= row[14]
+      p.remark= row[15]
+      p.source= row[16]
+      p.tracknum = row[17]
+      p.weight = row[18]
+      p.price = row[19]
+      p.sender = row[20]
+      p.excelfile = filename
+      p.save
+    end
+  end
+
+end
+
+
+def save_import
+  uploader = ExcelUploader.new 
+  uploader.store!(params[:dship][:excelfile])
+  path= File.join Rails.root, 'public/'
+  xlsfile= (path+ "#{uploader.store_path}")
+
+  save_from_xlsx(xlsfile, uploader.filename)
 
   uploader.remove!
   redirect_to dships_path

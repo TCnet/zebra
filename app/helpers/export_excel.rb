@@ -5,6 +5,7 @@ module ExportExcel
 
   Spreadsheet.client_encoding = "UTF-8"  
   
+  #导出亚马逊模版表格
   def outamazon(albums,etemplate,path,user,outfilename)
    
 
