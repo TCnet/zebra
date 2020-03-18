@@ -60,7 +60,7 @@ module ExportEub
          when "订单号"
            sheet1[c_cloum,t_num]= ad_str(dship.ordernum,user) 
          when "商品SKU"
-           sheet1[c_cloum,t_num]= skustr[0]
+           sheet1[c_cloum,t_num]= skustr[0]+"-"+dship.ordernum[-4,4]
          when "数量"
            sheet1.column(t_num).width =columnweight/2
            sheet1[c_cloum,t_num]= dship.num
@@ -108,7 +108,7 @@ module ExportEub
         
         case t_ob
          when "SKU编号"
-           sheet2[c_cloum,t_num]= skustr[0]
+           sheet2[c_cloum,t_num]= skustr[0]+"-"+dship.ordernum[-4,4]
          when "商品中文名称"
            if dpro
              sheet2[c_cloum,t_num]= dpro.cname+" "+skustr.join(' ')
