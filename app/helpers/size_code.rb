@@ -37,6 +37,30 @@ module SizeCode
   end
   #end size map
 
+  #newsize for the us
+  def sizenew_for(size,n, usszie)
+    result=size
+    ob = usszie.split(' ')
+    asize = asize.nil?? " " : asize
+    asize_arry = asize.tr("\n\r","|").split('|') 
+    if !usszie.empty? 
+      if( ob[n].upcase =~ /[A-Z]$/ )
+       
+        result = ob[n].upcase
+        return result
+        
+      else
+        result = ob[n].tr("/","-")
+        return result
+      end
+    elsif(size.downcase=="tm")
+      return "One Size"
+    else
+      return  size.upcase
+    end
+  end
+  #end size_for
+
   #size for the us
   def size_for(size,n,separate, usszie,asize)
     result=size
@@ -61,10 +85,24 @@ module SizeCode
   end
   #end size_for
 
+ #美国尺码更改为数字码
   def to_us_size_for(ussize,csize,str)
     ob=ussize 
     if !ussize.empty?
-      ob = ussize.split(' ').each_with_index.map {|s,j| s="US "+s+"("+str+csize[j]+")"}
+      #ob = ussize.split(' ').each_with_index.map {|s,j| s="US "+s+"("+str+csize[j]+")"}
+      ob = ussize.split(' ').each_with_index.map {|s,j| s= s.tr("/","-") }
+    else
+      ob = csize
+    end
+    return ob
+    
+  end
+
+  #美国尺码更改为数字码
+  def to_us_sizenew_for(ussize,csize)
+    ob=ussize 
+    if !ussize.empty?
+      ob = ussize.split(' ').each_with_index.map {|s,j| s= s.tr("/","-") }
     else
       ob = csize
     end

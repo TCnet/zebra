@@ -60,6 +60,7 @@ module ExportExcel
       fullname = album.fullname
       csize = album.csize.upcase.split(' ')
       ussize = to_us_size_for album.ussize,csize,"Tag Size "
+      ussize_new = to_us_sizenew_for album.ussize,csize
       keywords_arry = album.keywords.tr("\n\r",",").split(',').map{|x| x.strip }.uniq.delete_if{|x| !x.to_s.present?}
       price_arry = album.price.nil?? " " : album.price.tr(" ",",").tr("|",",").split(',')
       stock_arry = album.stock.nil?? " " : stock_two_arry(code.length,csize.length,album.stock)
@@ -129,6 +130,8 @@ module ExportExcel
         end
         #end size_map
 
+       
+
         #set description  
         if(t_ob=="product_description")
           
@@ -163,6 +166,7 @@ module ExportExcel
         num = n*csize.length+m+1+1
         colorname = color_for(f)
         sizename = size_for(e,m," ", album.ussize,album.asize)
+        sizename_new = sizenew_for(e,m, album.ussize)
 
         #set points
         if(t_ob=="bullet_point1")
@@ -181,12 +185,68 @@ module ExportExcel
                               
         end
         #end points
+
+        #2021新增数据
+        
+        if(t_ob=="is_adult_product")
+          sheet1[1+c_cloum,t_num] = "No"    
+          sheet1[num+c_cloum,t_num] = "No"   
+        end
+        if(t_ob=="age_range_description")
+          sheet1[1+c_cloum,t_num] = "Adult"    
+          sheet1[num+c_cloum,t_num] = "Adult"   
+        end
+
+        if(t_ob=="target_gender")
+          sheet1[1+c_cloum,t_num] = "Female"    
+          sheet1[num+c_cloum,t_num] = "Female"   
+        end
+
+        if(t_ob=="bottoms_size_system")
+          sheet1[1+c_cloum,t_num] = "US"    
+          sheet1[num+c_cloum,t_num] = "US"   
+        end
+
+         if(t_ob=="bottoms_size_class")
+          sheet1[1+c_cloum,t_num] = "Numeric"    
+          sheet1[num+c_cloum,t_num] = "Numeric"   
+        end
+
+        if(t_ob=="bottoms_size")
+          bosize = sizename_new.split('-')
+          if(bosize.length>0)
+            sheet1[num+c_cloum,t_num] = bosize[0]   
+          end
+        end
+        if(t_ob=="bottoms_size_to")
+          bosize = sizename_new.split('-')
+          if(bosize.length>1)
+            sheet1[num+c_cloum,t_num] = bosize[1]   
+          end
+        end
+
+        if(t_ob=="bottoms_body_type")
+          sheet1[1+c_cloum,t_num] = "Regular"    
+          sheet1[num+c_cloum,t_num] = "Regular"   
+        end
+
+         if(t_ob=="bottoms_height_type")
+          sheet1[1+c_cloum,t_num] = "Regular"    
+          sheet1[num+c_cloum,t_num] = "Regular"   
+        end
+
+
+
+
+
+
+        #end2021新增数据
         
         if(t_ob=="external_product_id_type")
           sheet1.row(1+c_cloum).height = rowheight
           sheet1.row(num+c_cloum).height = rowheight
-          sheet1[1+c_cloum,t_num] = "UPC"  
-          sheet1[num+c_cloum,t_num] = "UPC"     
+          sheet1[1+c_cloum,t_num] = ""  
+          sheet1[num+c_cloum,t_num] = ""     
         end
         
         if(t_ob=="brand_name")
@@ -194,8 +254,8 @@ module ExportExcel
           sheet1[num+c_cloum,t_num] = brand   
         end
         if(t_ob=="department_name")
-          sheet1[1+c_cloum,t_num] = "womens" 
-          sheet1[num+c_cloum,t_num] = "womens"
+          sheet1[1+c_cloum,t_num] = "Women" 
+          sheet1[num+c_cloum,t_num] = "Women"
           
         end
         if(t_ob=="parent_sku")
@@ -221,7 +281,7 @@ module ExportExcel
           sheet1[num+c_cloum,t_num]= colorname
         end
         if(t_ob=="size_name")
-          sheet1[num+c_cloum,t_num]= sizename
+          sheet1[num+c_cloum,t_num]= sizename_new
         end
         if(t_ob=="item_name")
           sheet1[1+c_cloum,t_num] = fullname_for(brandname,fullname,"","")
