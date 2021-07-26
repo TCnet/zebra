@@ -45,6 +45,14 @@ module ExportExcel
         photos = photos.where("name <>?","size.jpg")
       end
 
+      sql = "name LIKE ?"
+      sql2 ="name not LIKE ?"
+      mainphotos = photos.where(sql,"%01.jpg%")
+      otherphotos = photos.where(sql2,"%01.jpg%")
+
+
+
+
       
       code = code_for photos, user.imgrule
       
@@ -202,35 +210,36 @@ module ExportExcel
           sheet1[num+c_cloum,t_num] = "Female"   
         end
 
-        if(t_ob=="bottoms_size_system")
+        if(t_ob =~ /^[a-z]+_size_system$/)
           sheet1[1+c_cloum,t_num] = "US"    
           sheet1[num+c_cloum,t_num] = "US"   
         end
 
-         if(t_ob=="bottoms_size_class")
+        if(t_ob =~ /^[a-z]+_size_class$/)
           sheet1[1+c_cloum,t_num] = "Numeric"    
           sheet1[num+c_cloum,t_num] = "Numeric"   
         end
 
-        if(t_ob=="bottoms_size")
+        if(t_ob =~ /^[a-z]+_size$/)
           bosize = sizename_new.split('-')
           if(bosize.length>0)
             sheet1[num+c_cloum,t_num] = bosize[0]   
           end
         end
-        if(t_ob=="bottoms_size_to")
+
+        if(t_ob =~ /^[a-z]+_size_to$/)
           bosize = sizename_new.split('-')
           if(bosize.length>1)
             sheet1[num+c_cloum,t_num] = bosize[1]   
           end
         end
 
-        if(t_ob=="bottoms_body_type")
+        if(t_ob =~ /^[a-z]+_body_type$/)
           sheet1[1+c_cloum,t_num] = "Regular"    
           sheet1[num+c_cloum,t_num] = "Regular"   
         end
 
-         if(t_ob=="bottoms_height_type")
+        if(t_ob =~ /^[a-z]+_height_type$/)
           sheet1[1+c_cloum,t_num] = "Regular"    
           sheet1[num+c_cloum,t_num] = "Regular"   
         end
@@ -477,42 +486,78 @@ module ExportExcel
     end
 
     #根据颜色分组 设置url
-    if(t_ob=="main_image_url")
+    if(t_ob=="other_image_url1")
       j=1
       code.each do |b|
-        
         m=t_num
-        photos.each do |d|
+        otherphotos.each do |d|
           name=d.name[0,2].downcase
           if b==name
             if m<otherimg_num+t_num
               if j==1 #第一行 
                 sheet1[1+c_cloum,m] = geturl(d.picture.url) #
-                if m==t_num
-                  sheet1[1+c_cloum,m+otherimg_num+1]= geturl(d.picture.url) #switch img
-                end
               end
               #其他行
               csize.each_with_index do |c,index|
                 sheet1[j+index+1+c_cloum,m] = geturl(d.picture.url)
-                
-                #switch img 
-                if m==t_num
-                  sheet1[j+index+1+c_cloum,m+otherimg_num+1]= geturl(d.picture.url)
-                end
-                
               end
-              
             end
-            
             m+=1
           end
-          
         end
         j +=csize.length                
       end
       
     end
+    #根据颜色分组 设置主图
+    if(t_ob=="main_image_url")
+      j=1
+      code.each do |b|
+        m=t_num
+        mainphotos.each do |d|
+          name=d.name[0,2].downcase
+          if b==name
+              if j==1 #第一行 
+                sheet1[1+c_cloum,m] = geturl(d.picture.url) #
+              end
+              #其他行
+              csize.each_with_index do |c,index|
+                sheet1[j+index+1+c_cloum,m] = geturl(d.picture.url)
+              end
+            m+=1
+          end
+        end
+        j +=csize.length                
+      end
+      
+    end# end 主图
+
+    #根据颜色分组 设置切换
+    if(t_ob=="swatch_image_url")
+      j=1
+      code.each do |b|
+        m=t_num
+        mainphotos.each do |d|
+          name=d.name[0,2].downcase
+          if b==name
+              if j==1 #第一行 
+                sheet1[1+c_cloum,m] = geturl(d.picture.url) #
+              end
+              #其他行
+              csize.each_with_index do |c,index|
+                sheet1[j+index+1+c_cloum,m] = geturl(d.picture.url)
+              end
+            m+=1
+          end
+        end
+        j +=csize.length                
+      end
+      
+    end
+
+
+
+
 
     #设置 sizeimg
     if(t_ob=="other_image_url8")
