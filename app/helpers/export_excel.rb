@@ -49,6 +49,7 @@ module ExportExcel
       sql2 ="name not LIKE ?"
       mainphotos = photos.where(sql,"%01.jpg%")
       otherphotos = photos.where(sql2,"%01.jpg%")
+      waistsize = description_waist_size_for album.description
 
 
 
@@ -175,6 +176,7 @@ module ExportExcel
         colorname = color_for(f)
         sizename = size_for(e,m," ", album.ussize,album.asize)
         sizename_new = sizenew_for(e,m, album.ussize)
+       
 
         #set points
         if(t_ob=="bullet_point1")
@@ -220,7 +222,7 @@ module ExportExcel
           sheet1[num+c_cloum,t_num] = "Numeric"   
         end
 
-        if(t_ob =~ /^[a-z]+_size$/)
+        if(t_ob =~ /^[a-z]+_size$/&& t_ob!="waist_size")
           bosize = sizename_new.split('-')
           if(bosize.length>0)
             sheet1[num+c_cloum,t_num] = bosize[0]   
@@ -243,6 +245,20 @@ module ExportExcel
           sheet1[1+c_cloum,t_num] = "Regular"    
           sheet1[num+c_cloum,t_num] = "Regular"   
         end
+
+         if(t_ob =="waist_size_unit_of_measure"&& !waistsize.empty?)
+          if(is_in)
+             #sheet1[1+c_cloum,t_num] = ""    
+             sheet1[num+c_cloum,t_num] = "IN"   
+          else
+             #sheet1[1+c_cloum,t_num] = "Regular"    
+             sheet1[num+c_cloum,t_num] = "CM"   
+          end
+        end
+
+       
+
+
 
 
 
@@ -555,6 +571,24 @@ module ExportExcel
       
     end
 
+#设置腰围属性
+
+  if(t_ob=="waist_size"&& !waistsize.empty?)
+    wastr = waistsize.split(',')
+     j=1
+    code.each do |b|
+       m=t_num
+       csize.each_with_index do |c,index|
+        sheet1[j+index+1+c_cloum,m] = wastr[index]
+       end
+
+      j +=csize.length      
+
+    end
+
+  end
+
+#end 设置腰围属性
 
 
 

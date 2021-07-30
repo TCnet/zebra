@@ -130,7 +130,41 @@ module SizeCode
     return result
   end
 
+  #提起详细描述里的腰围尺码
 
+  def description_waist_size_for(desize,is_in=false)
+   #set size for description
+     destr=""
+     waist_px = 0
+     if !desize.empty?
+       dearray = twoarray_for desize
+       dellen = dearray[0].length
+        dellen.times do |e|
+          if(dearray[0][e].upcase=="WAIST")
+            waist_px=e
+            break
+          end
+        end
+        dstr =  dearray[waist_px+1]
+        if(!dstr.empty?)
+          #wastr= dstr.split(' ')
+          dstr.each_with_index do |f, num|
+            thewaist = f.split('-')
+            destr+= thewaist[0]
+            #destr+= to_in(thewaist[0],is_in)
+            if(num<dstr.length-1)
+              destr+=","
+            end
+          end
+        end
+
+     end
+     return destr
+
+  end
+
+
+# 详细描述的尺码
   def description_size_for(desize,csize,is_in=false)
     #set size for description
     destr=""
