@@ -176,7 +176,11 @@ module ExportExcel
         colorname = color_for(f)
         sizename = size_for(e,m," ", album.ussize,album.asize)
         sizename_new = sizenew_for(e,m, album.ussize)
-       
+        is_numbersize = true
+        if( album.ussize.empty? || album.ussize.upcase =~ /[A-Z]$/ )
+          is_numbersize =false
+        end
+
 
         #set points
         if(t_ob=="bullet_point1")
@@ -199,37 +203,48 @@ module ExportExcel
         #2021新增数据
         
         if(t_ob=="is_adult_product")
-          sheet1[1+c_cloum,t_num] = "No"    
+          #sheet1[1+c_cloum,t_num] = "No"    
           sheet1[num+c_cloum,t_num] = "No"   
         end
         if(t_ob=="age_range_description")
-          sheet1[1+c_cloum,t_num] = "Adult"    
+          #sheet1[1+c_cloum,t_num] = "Adult"    
           sheet1[num+c_cloum,t_num] = "Adult"   
         end
 
         if(t_ob=="target_gender")
-          sheet1[1+c_cloum,t_num] = "Female"    
+         # sheet1[1+c_cloum,t_num] = "Female"    
           sheet1[num+c_cloum,t_num] = "Female"   
         end
 
         if(t_ob =~ /^[a-z]+_size_system$/)
-          sheet1[1+c_cloum,t_num] = "US"    
+         # sheet1[1+c_cloum,t_num] = "US"    
           sheet1[num+c_cloum,t_num] = "US"   
         end
 
         if(t_ob =~ /^[a-z]+_size_class$/)
-          sheet1[1+c_cloum,t_num] = "Numeric"    
-          sheet1[num+c_cloum,t_num] = "Numeric"   
+          #sheet1[1+c_cloum,t_num] = "Numeric"    
+          
+          if(is_numbersize)
+            sheet1[num+c_cloum,t_num] = "Numeric" 
+          else
+            sheet1[num+c_cloum,t_num] = "Alpha" 
+          end  
         end
 
         if(t_ob =~ /^[a-z]+_size$/&& t_ob!="waist_size")
-          bosize = sizename_new.split('-')
-          if(bosize.length>0)
-            sheet1[num+c_cloum,t_num] = bosize[0]   
+          if(is_numbersize)
+             bosize = sizename_new.split('-')
+              if(bosize.length>0)
+                sheet1[num+c_cloum,t_num] = bosize[0]   
+              end
+          else
+            sheet1[num+c_cloum,t_num] = size_map_for(e)
           end
+
+         
         end
 
-        if(t_ob =~ /^[a-z]+_size_to$/)
+        if(t_ob =~ /^[a-z]+_size_to$/ && is_numbersize)
           bosize = sizename_new.split('-')
           if(bosize.length>1)
             sheet1[num+c_cloum,t_num] = bosize[1]   
@@ -237,12 +252,12 @@ module ExportExcel
         end
 
         if(t_ob =~ /^[a-z]+_body_type$/)
-          sheet1[1+c_cloum,t_num] = "Regular"    
+         # sheet1[1+c_cloum,t_num] = "Regular"    
           sheet1[num+c_cloum,t_num] = "Regular"   
         end
 
         if(t_ob =~ /^[a-z]+_height_type$/)
-          sheet1[1+c_cloum,t_num] = "Regular"    
+          #sheet1[1+c_cloum,t_num] = "Regular"    
           sheet1[num+c_cloum,t_num] = "Regular"   
         end
 
@@ -294,8 +309,8 @@ module ExportExcel
           sheet1[num+c_cloum,t_num] = "Variation" 
         end
         if(t_ob=="variation_theme")
-          sheet1[1+c_cloum,t_num] = "sizecolor" 
-          sheet1[num+c_cloum,t_num] = "sizecolor" 
+          sheet1[1+c_cloum,t_num] = "color-size" 
+          sheet1[num+c_cloum,t_num] = "color-size" 
         end
 
         if(t_ob=="quantity")
@@ -313,15 +328,15 @@ module ExportExcel
           sheet1[num+c_cloum,t_num]=  fullname_for(brandname,fullname,colorname,sizename.tr("/","-").split(' ').join(' '))
         end
         if(t_ob=="fulfillment_latency")
-          sheet1[1+c_cloum,t_num] = 5
+          #sheet1[1+c_cloum,t_num] = 5
           sheet1[num+c_cloum,t_num] = 5
         end
         if(t_ob=="sale_from_date")
-          sheet1[1+c_cloum,t_num] =  -2.days.from_now.strftime('%Y-%m-%d')
+          #sheet1[1+c_cloum,t_num] =  -2.days.from_now.strftime('%Y-%m-%d')
           sheet1[num+c_cloum,t_num] = -2.days.from_now.strftime('%Y-%m-%d')
         end
         if(t_ob=="sale_end_date")
-          sheet1[1+c_cloum,t_num] =  770.days.from_now.strftime('%Y-%m-%d')
+          #sheet1[1+c_cloum,t_num] =  770.days.from_now.strftime('%Y-%m-%d')
           sheet1[num+c_cloum,t_num] = 770.days.from_now.strftime('%Y-%m-%d')
         end
         if(t_ob=="import_designation")
@@ -333,7 +348,7 @@ module ExportExcel
           sheet1[num+c_cloum,t_num] = "China"
         end
         if(t_ob=="condition_type")
-          sheet1[1+c_cloum,t_num] =  "New"
+         # sheet1[1+c_cloum,t_num] =  "New"
           sheet1[num+c_cloum,t_num] = "New"
         end
         
@@ -360,26 +375,26 @@ module ExportExcel
         #set price
         if(price_arry.length>0)
           if(t_ob=="standard_price")
-            sheet1[1+c_cloum,t_num] = price_arry[0].to_f.round(2)
+           # sheet1[1+c_cloum,t_num] = price_arry[0].to_f.round(2)
             sheet1[num+c_cloum,t_num] = price_arry[0].to_f.round(2)
           end
 
           if(t_ob=="list_price")
             if(price_arry.length==1)
-              sheet1[1+c_cloum,t_num] = price_arry[0].to_f.round(2)
+            #  sheet1[1+c_cloum,t_num] = price_arry[0].to_f.round(2)
               sheet1[num+c_cloum,t_num] = price_arry[0].to_f.round(2)
             elsif(price_arry.length>=2)
-              sheet1[1+c_cloum,t_num] = price_arry[1].to_f.round(2)
+              #sheet1[1+c_cloum,t_num] = price_arry[1].to_f.round(2)
               sheet1[num+c_cloum,t_num] = price_arry[1].to_f.round(2)
             end
           end
 
           if(t_ob=="sale_price")
             if(price_arry.length==1)
-              sheet1[1+c_cloum,t_num] = price_arry[0].to_f.round(2)
+              #sheet1[1+c_cloum,t_num] = price_arry[0].to_f.round(2)
               sheet1[num+c_cloum,t_num] = price_arry[0].to_f.round(2)
             elsif(price_arry.length>2)
-              sheet1[1+c_cloum,t_num] = price_arry[2].to_f.round(2)
+             # sheet1[1+c_cloum,t_num] = price_arry[2].to_f.round(2)
               sheet1[num+c_cloum,t_num] = price_arry[2].to_f.round(2)
             end
           end
@@ -557,7 +572,7 @@ module ExportExcel
           name=d.name[0,2].downcase
           if b==name
               if j==1 #第一行 
-                sheet1[1+c_cloum,m] = geturl(d.picture.url) #
+                #sheet1[1+c_cloum,m] = geturl(d.picture.url) #
               end
               #其他行
               csize.each_with_index do |c,index|
